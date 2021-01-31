@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class dashboardController extends Controller
+class cusController extends Controller
 {
     public function __construct()
     {
@@ -12,6 +12,6 @@ class dashboardController extends Controller
     }
     public function index()
     {
-        return view('dashboard');  
+        return view('pages.customers');  
     }
 }

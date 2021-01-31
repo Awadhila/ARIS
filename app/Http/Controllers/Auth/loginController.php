@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 
 class loginController extends Controller
 {
-    public function index()
+    public function __construct()
     {
-        return view('dashboard');
+        $this ->middleware('guest');
     }
     
 }

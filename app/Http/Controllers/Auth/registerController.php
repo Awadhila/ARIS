@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 
 class registerController extends Controller
 {
-    public function index()
+    public function __construct()
     {
-        return view('auth.login');
+        $this ->middleware('guest');
     }
+
 }
