@@ -12,6 +12,7 @@ class dashboardController extends Controller
     }
     public function index()
     {
+        //dd(user()->suppliers()->create);
         return view('dashboard');  
     }
 }

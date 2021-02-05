@@ -12,4 +12,7 @@ Route::get('/',[registerController::class, 'index']);
 Route::get('/',[dashboardController::class, 'index']);
 
 Route::get('/customers', [cusController::class, 'index'])->name('cus');
+Route::post('/customers', [cusController::class, 'store']);
+
 Route::get('/suppliers', [suppController::class, 'index'])->name('supp');
+Route::post('/suppliers', [suppController::class, 'store']);
