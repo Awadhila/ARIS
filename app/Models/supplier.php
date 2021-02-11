@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Inventory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class supplier extends Model
 {
@@ -15,5 +16,9 @@ class supplier extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function inventory()
+    {
+        return $this->hasMany(Inventory::class);
     }
 }

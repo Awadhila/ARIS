@@ -15,9 +15,21 @@ class cusController extends Controller
 
     public function index()
     {
+        $form = array("Customer", "Name", "Contact");
+
         $customers = customer::get();
+        $cus = array();
+        $i =0;
+        foreach ($customers as $customer) {
+            $cus[$i][0] = $customer->name;
+            $cus[$i][1] = $customer->contact;
+            $i++;
+        }
+
         return view('pages.customers',[
-            'customers' => $customers
+            'customers' => $cus,
+            'form' => $form
+
         ]);   
     }
 
@@ -25,13 +37,13 @@ class cusController extends Controller
     {
 
         $this->validate($request, [
-            'cusName' => 'max:255|required',
-            'cusContact' => 'max:255|required',
+            'Name' => 'max:255|required',
+            'Contact' => 'max:255|required',
         ]);
 
         $request->user()->customers()->create([
-            'name' => $request->cusName,
-            'contact' =>$request->cusContact
+            'name' => $request->Name,
+            'contact' =>$request->Contact
         ]);
 
 

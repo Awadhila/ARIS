@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\cusController;
 use App\Http\Controllers\suppController;
 use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\Auth\loginController;
 use App\Http\Controllers\Auth\registerController;
 
@@ -16,3 +17,6 @@ Route::post('/customers', [cusController::class, 'store']);
 
 Route::get('/suppliers', [suppController::class, 'index'])->name('supp');
 Route::post('/suppliers', [suppController::class, 'store']);
+
+Route::get('/inventory', [InventoryController::class, 'index'])->name('inv');
+Route::post('/inventory', [InventoryController::class, 'store']);

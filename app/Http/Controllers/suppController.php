@@ -14,25 +14,40 @@ class suppController extends Controller
     }
     public function index()
     {
+        $form = array("Supplier", "Name", "Contact");
         $suppliers = supplier::get();
+        $supp = array();
+        $i =0;
+        foreach ($suppliers as $supplier) {
+            $supp[$i][0] = $supplier->name;
+            $supp[$i][1] = $supplier->contact;
+            $i++;
+        }
+
         return view('pages.suppliers',[
-            'suppliers' => $suppliers
+            'suppliers' => $supp,
+            'form' => $form
         ]);  
     }
     public function store(Request $request)
     {
 
         $this->validate($request, [
-            'suppName' => 'max:255|required',
-            'suppContact' => 'max:255|required',
+            'Name' => 'max:255|required',
+            'Contact' => 'max:255|required',
         ]);
 
         $request->user()->suppliers()->create([
-            'name' => $request->suppName,
-            'contact' =>$request->suppContact
+            'name' => $request->Name,
+            'contact' =>$request->Contact
         ]);
 
 
         return back();
     }
+    public function getSupp() {
+        $suppliers = supplier::get();
+        return $suppliers;
+    }
+
 }
