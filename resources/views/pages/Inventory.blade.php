@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-16">
             <div class="card">
                 <div class="card-header">{{ __('Inventory') }}</div>
 
@@ -15,7 +15,7 @@
                     @endif
                     @include('tabs.tabs')
                     <div class="tab-content" id="ex1-content">
-                        @include('tabs.contents.view',['option' => $inventory],['form' => $form])
+                        @include('tabs.contents.display.form',['option' => $inventory],['form' => $form])
                     </div>
                     <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
                         @if ($supp->count())

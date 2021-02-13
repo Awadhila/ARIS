@@ -36,9 +36,9 @@
     <legend for = "Catagory" class="col-form-label col-sm-2">Catagory</legend>
     <div class="col-sm-10">
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="Catagory" id="Catagory" value="fruits">
+            <input class="form-check-input" type="radio" name="Catagory" id="Catagory" value="fruit">
             <label class="form-check-label" for="Catagory">
-            Fruits
+            Fruit
             </label>
         </div>
         <div class="form-check">

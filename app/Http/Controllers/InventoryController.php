@@ -18,7 +18,7 @@ class InventoryController extends Controller
     }
     public function index()
     {
-        $form = array("Inventory", "Name", "Origin","Catagory","stock","availible","availible","damaged","Sold","Price");
+        $form = array("Inventory", "Name", "Origin","Catagory","stock","availible","damaged","Sold","Price");
         $inventorires = Inventory::get();
         $Supp = supplier::get();
         $inv = array();
@@ -46,7 +46,7 @@ class InventoryController extends Controller
         $this->validate($request, [
             'Name' => 'max:255|required',
             'Origin' => 'required',Rule::in(['Local', 'Import']),
-            'Catagory' =>'required',Rule::in(['fruits', 'vegetables']),
+            'Catagory' =>'required',Rule::in(['fruit', 'vegetables']),
         ]);
         $Supp = DB::table('suppliers')->where('name',$request->Supplier)->first();
 

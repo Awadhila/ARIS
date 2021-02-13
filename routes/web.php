@@ -6,6 +6,7 @@ use App\Http\Controllers\suppController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\Auth\loginController;
+use App\Http\Controllers\transactionController;
 use App\Http\Controllers\Auth\registerController;
 
 
@@ -20,3 +21,6 @@ Route::post('/suppliers', [suppController::class, 'store']);
 
 Route::get('/inventory', [InventoryController::class, 'index'])->name('inv');
 Route::post('/inventory', [InventoryController::class, 'store']);
+
+Route::get('/transactions', [transactionController::class, 'index'])->name('tran');
+Route::post('/transactions', [transactionController::class, 'store']);
