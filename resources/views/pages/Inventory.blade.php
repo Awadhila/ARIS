@@ -15,10 +15,12 @@
                     @endif
                     @include('tabs.tabs')
                     <div class="tab-content" id="ex1-content">
-                        @include('tabs.contents.display.form',['option' => $inventory],['form' => $form])
+                        @include('tabs.contents.display.form',['Objects' => $Objects])
+                        {{$Objects["inv"]->links() }}
+
                     </div>
                     <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
-                        @if ($supp->count())
+                        @if ($Objects['Supp']->count())
 
                         <form action="{{ route('inv') }}" method="post" class="mb-4">
                             @csrf
@@ -26,13 +28,13 @@
                                 <label for="Supplier" class="col-sm-2 col-form-label">Supplier</label>
                                 <div class="col-sm-10">
                                     <select  class="form-control" name="Supplier"  id="Supplier" >
-                                    @foreach ($supp as $supp)
+                                    @foreach ($Objects['Supp'] as $supp)
                                         <option>{{$supp->name}}</option>
                                     @endforeach
                                     </select>
                                 </div>
                             </div>
-                            @include('tabs.contents.register',['option' => $inventory],['form' => $form])
+                            @include('tabs.contents.register',['Objects' => $Objects])
                         </form>
                         @else
                         <p>There are no suppliers</p>

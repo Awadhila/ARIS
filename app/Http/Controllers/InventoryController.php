@@ -19,11 +19,14 @@ class InventoryController extends Controller
     public function index()
     {
         $form = array("Inventory", "Name", "Origin","Catagory","stock","availible","damaged","Sold","Price");
-        $inventorires = Inventory::get();
-        $Supp = supplier::get();
-        $inv = array();
         $i =0;
-        foreach ($inventorires as $inventory) {
+
+        $Objects = array("Supp"=> supplier::get(),
+                         "inv"=>Inventory::paginate(1), 
+                         "form" =>$form
+                        );
+        //dd($Objects['inv'][0]);
+        /*foreach ($inventorires as $inventory) {
             $inv[$i][0] = $inventory->name;
             $inv[$i][1] = $inventory->trade_origin;
             $inv[$i][2] = $inventory->Catagory;
@@ -33,11 +36,9 @@ class InventoryController extends Controller
             $inv[$i][6] = $inventory->sold;
             $inv[$i][7] = $inventory->price;
             $i++;
-        }
+        }*/
         return view('pages.Inventory',[
-            'inventory' => $inv,
-            'supp' => $Supp,
-            'form' => $form
+            'Objects' => $Objects,
         ]);  
     }
     public function store(Request $request)

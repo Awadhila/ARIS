@@ -1,5 +1,5 @@
 <div class="form-group row" id = "f1">
-    <label for="Name" class="col-sm-2 col-form-label">{{$form[1]}}</label>
+    <label for="Name" class="col-sm-2 col-form-label">{{$Objects['form'][1]}}</label>
     <div class="col-sm-10">
 
         <input type="text"  class="form-control @error('Name') is-invalid @enderror" name="Name" id="Name" value="{{ old('Name') }}">
@@ -11,7 +11,7 @@
     </div>
 </div>
 <div class="form-group row" id = "f2">
-    <label for="Contact" class="col-sm-2 col-form-label">{{$form[2]}}</label>
+    <label for="Contact" class="col-sm-2 col-form-label">{{$Objects['form'][1]}}</label>
     <div class="col-sm-10">
         <input type="text"  class="form-control @error('Contact') is-invalid @enderror" name="Contact"  id="Contact" value="{{ old('Contact') }}"  >
         @error('Contact')
