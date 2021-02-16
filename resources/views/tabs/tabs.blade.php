@@ -31,7 +31,7 @@
         role="tab"
         aria-controls="ex1-tabs-2"
         aria-selected="false"
-        >Register</a
+        >Add new Item</a
         >
     </li>
 

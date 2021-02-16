@@ -17,12 +17,12 @@
                     @endif
                     @include('tabs.tabs')
                     <div class="tab-content" id="ex1-content">
-                        @include('tabs.contents.display.list',['option' => $suppliers],['form' => $form])
+                        @include('tabs.contents.display.list',['Objects' => $Objects])
                     </div>
                     <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
                         <form action="{{ route('supp') }}" method="post" class="mb-4">
                             @csrf
-                            @include('tabs.contents.register',['option' => $suppliers],['form' => $form])
+                            @include('tabs.contents.register',['Objects' => $Objects])
                         </form>
                     </div>
  

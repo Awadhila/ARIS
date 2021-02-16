@@ -19,10 +19,9 @@ class InventoryController extends Controller
     public function index()
     {
         $form = array("Inventory", "Name", "Origin","Catagory","stock","availible","damaged","Sold","Price");
-        $i =0;
 
         $Objects = array("Supp"=> supplier::get(),
-                         "inv"=>Inventory::paginate(1), 
+                         "Inventory"=>Inventory::paginate(1), 
                          "form" =>$form
                         );
         //dd($Objects['inv'][0]);

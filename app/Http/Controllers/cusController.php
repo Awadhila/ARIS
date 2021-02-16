@@ -16,20 +16,11 @@ class cusController extends Controller
     public function index()
     {
         $form = array("Customer", "Name", "Contact");
-
-        $customers = customer::get();
-        $cus = array();
-        $i =0;
-        foreach ($customers as $customer) {
-            $cus[$i][0] = $customer->name;
-            $cus[$i][1] = $customer->contact;
-            $i++;
-        }
-
+        $Objects = array("Customer"=> customer::get(),
+                         "form" =>$form
+                        );
         return view('pages.customers',[
-            'customers' => $cus,
-            'form' => $form
-
+            'Objects' => $Objects,
         ]);   
     }
 

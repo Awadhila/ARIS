@@ -13,33 +13,23 @@
                             {{ session('status') }}
                         </div>
                     @endif
+
                     @include('tabs.tabs')
+                    
                     <div class="tab-content" id="ex1-content">
                         @include('tabs.contents.display.form',['Objects' => $Objects])
-                        {{$Objects["inv"]->links() }}
-
+                        <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+                            <form action="{{ route('inv') }}" method="post" class="mb-4">
+                                @csrf
+                                @if ($Objects['Supp']->count())
+                                    @include('tabs.contents.register',['Objects' => $Objects])
+                                @else
+                                    <p>There are no suppliers</p>
+                                @endif
+                            </form>
+                        </div>
                     </div>
-                    <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
-                        @if ($Objects['Supp']->count())
 
-                        <form action="{{ route('inv') }}" method="post" class="mb-4">
-                            @csrf
-                            <div class="form-group row">
-                                <label for="Supplier" class="col-sm-2 col-form-label">Supplier</label>
-                                <div class="col-sm-10">
-                                    <select  class="form-control" name="Supplier"  id="Supplier" >
-                                    @foreach ($Objects['Supp'] as $supp)
-                                        <option>{{$supp->name}}</option>
-                                    @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            @include('tabs.contents.register',['Objects' => $Objects])
-                        </form>
-                        @else
-                        <p>There are no suppliers</p>
-                        @endif
-                    </div>
                     
                 </div>
             </div>

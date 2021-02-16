@@ -15,18 +15,12 @@ class suppController extends Controller
     public function index()
     {
         $form = array("Supplier", "Name", "Contact");
-        $suppliers = supplier::get();
-        $supp = array();
-        $i =0;
-        foreach ($suppliers as $supplier) {
-            $supp[$i][0] = $supplier->name;
-            $supp[$i][1] = $supplier->contact;
-            $i++;
-        }
+        $Objects = array("Supplier"=> supplier::get(),
+                         "form" =>$form
+                        );
 
         return view('pages.suppliers',[
-            'suppliers' => $supp,
-            'form' => $form
+            'Objects' => $Objects,
         ]);  
     }
     public function store(Request $request)
@@ -45,9 +39,4 @@ class suppController extends Controller
 
         return back();
     }
-    public function getSupp() {
-        $suppliers = supplier::get();
-        return $suppliers;
-    }
-
 }
