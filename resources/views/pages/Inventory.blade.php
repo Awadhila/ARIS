@@ -18,7 +18,7 @@
                     
                     <div class="tab-content" id="ex1-content">
                             <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel"  aria-labelledby="ex1-tab-1">
-                                @if (!empty($Objects["form"][0]))
+                                @if ($Objects[$Objects["form"][0]]->count())
                                 @foreach ($Objects[$Objects["form"][0]] as $items)
                                     @include('tabs.contents.display.form',['Objects' => $Objects])
                                     @endforeach
