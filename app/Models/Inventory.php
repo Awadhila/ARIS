@@ -16,7 +16,9 @@ class Inventory extends Model
         'supplier_id',
         'trade_origin',
         'Catagory',
-        'price'
+        'price',
+        'discription',
+        'image'
     ];
     public function suppliers()
     {

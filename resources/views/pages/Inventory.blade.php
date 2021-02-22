@@ -17,15 +17,16 @@
                     @include('tabs.tabs')
                     
                     <div class="tab-content" id="ex1-content">
-                        <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel"  aria-labelledby="ex1-tab-1">
-                            @if (!empty($Objects["form"][0]))
-                            @foreach ($Objects[$Objects["form"][0]] as $items)
-                                @include('tabs.contents.display.form',['Objects' => $Objects])
-                                @endforeach
-                            @else
-                                <p>There are no {{$Objects['form'][0]}}</p>
-                            @endif
-                        </div>
+                            <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel"  aria-labelledby="ex1-tab-1">
+                                @if (!empty($Objects["form"][0]))
+                                @foreach ($Objects[$Objects["form"][0]] as $items)
+                                    @include('tabs.contents.display.form',['Objects' => $Objects])
+                                    @endforeach
+                                @else
+                                    <p>There are no {{$Objects['form'][0]}}</p>
+                                @endif
+                            </div>
+
                         <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
                             <form action="{{ route('inv') }}" method="post" class="mb-4">
                                 @csrf
@@ -43,6 +44,16 @@
     </div>
 </div>
 <script type="text/javascript">
+    function displayImg(input){
+        var file = $("input[type=file]").get(0).files[0];
+        if(file){
+            var reader = new FileReader();
+            reader.onload = function(){
+                $("#invImage").attr("src",reader.result)
+            }
+            reader.readAsDataURL(file);
+        }
+    }
     $(document).ready(function(){
         $("#f2,#f8,#Image,#Catagory,#Origin").hide();
     });

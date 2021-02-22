@@ -38,8 +38,6 @@ class InventoryController extends Controller
             'Catagory' =>'required',Rule::in(['fruit', 'vegetables']),
         ]);
         $Supp = DB::table('suppliers')->where('name',$request->Supplier)->first();
-
-
         Inventory::create([
             'name' => $request->Name,
             'supplier_id' => $Supp->id,
@@ -48,7 +46,28 @@ class InventoryController extends Controller
             'price' => $request->Price,
         ]);
 
-
+        return back();
+    }
+    public function edit($id, Request $request)
+    {
+        dd('aaa');
+        $this->validate($request, [
+            'staticName' => 'max:255|required',
+            'Origin' => 'required',Rule::in(['Local', 'Import']),
+            'Catagory' =>'required',Rule::in(['fruit', 'vegetables']),
+            'staticPrice' =>'required',Rule::in(['fruit', 'vegetables']),
+        ]);
+        $image = $request->file('file');
+        $imageName = time().'-'.$image->extention();
+        $image->move(public_path('Images'),$imageName);
+        $inv = Inventory::find($id);
+        $inv->name = $request->staticName;
+        $inv->Origin =$request->Origin;
+        $inv->Catagory =$request->Catagory;
+        $inv->price =$request->staticPrice;
+        $inv->discription = $request->staticDiscription;
+        $inv->image = $imageName;
+        $inv->save();
         return back();
     }
 }

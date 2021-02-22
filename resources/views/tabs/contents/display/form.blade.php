@@ -76,19 +76,22 @@
 
       </div>
       <div class="col">
-        2 of 2
+        <div id="Image" class="card" style="width: 90%;">
+          <img id="invImage"  alt="Inventory Image" style="width: 50%;" class="img-thumbnail rounded mx-auto d-block">
+          <div class="card-body">
+            <label for="staticImage">Enter Image Inventory</label>
+            <input name="file" type="file" class="form-control-file" id="staticImage" onchange="displayImg(this)">
+          </div>
+        </div>
         <div class="form-group row">
           <label for="staticDiscription" class="col-sm-5 col-form-label">{{$Objects["form"][9]}}</label>
           <textarea readonly class="form-control-plaintext" id="staticDiscription" rows="3">{{$items->discription}}</textarea>
         </div>
+
       </div>
     </div>
 
-      <div id="Image" class="form-group row">
-        <label for="staticImage">Enter Image Inventory</label>
-        <input type="file" class="form-control-file" id="staticImage">
-      </div>
-    <div class="form-group row">
+    <div class="form-group row mt-5">
       <input  id = "f8" type="submit" class="btn btn-primary ml-5" value="Make Edit">
     </div>
   </div>
