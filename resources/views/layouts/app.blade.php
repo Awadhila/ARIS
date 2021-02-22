@@ -21,7 +21,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <title>AkhyazApp</title>
+    <title>Retail IS</title>
 
 </head>
 <body>

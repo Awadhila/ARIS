@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">{{ __('Transactions') }}</div>
-
+ 
                     <div class="card-body">                       
                         <div id="tranasactions_type_btn" class="container-sm">
                             <button type="button" id="sale"class="btn btn-primary btn-lg btn-block">Sale Inventories</button>
