@@ -18,7 +18,7 @@ class InventoryController extends Controller
     }
     public function index()
     {
-        $form = array("Inventory", "Name", "Origin","Catagory","stock","availible","damaged","Sold","Price","Discription");
+        $form = array("Inventory", "Name", "Origin","Catagory","Price","stock","availible","damaged","Sold","Discription",);
 
         $Objects = array("Supp"=> supplier::get(),
                          "Inventory"=>Inventory::with('suppliers','sales','deliveries')->paginate(1), 
@@ -48,10 +48,19 @@ class InventoryController extends Controller
 
         return back();
     }
-    public function edit($id, Request $request)
+    public function finditem($id)
     {
-        dd('aaa');
-        $this->validate($request, [
+        $form = array("Inventory", "Name", "Origin","Catagory","Price","stock","availible","damaged","Sold","Discription",);
+        $data = DB::table('inventories')->where('id',$id)->paginate(1);
+
+        $Objects = array("Supp"=> supplier::get(),
+                 "Inventory"=>$data, 
+                 "form" =>$form
+       );
+        return view('pages.Inventory',[
+            'Objects' => $Objects,
+        ]);        
+         /*$this->validate($request, [
             'staticName' => 'max:255|required',
             'Origin' => 'required',Rule::in(['Local', 'Import']),
             'Catagory' =>'required',Rule::in(['fruit', 'vegetables']),
@@ -68,8 +77,13 @@ class InventoryController extends Controller
         $inv->discription = $request->staticDiscription;
         $inv->image = $imageName;
         $inv->save();
-        return back();
+        return back();*/
     }
+    public function update(Request $request){
+        dd("aa");
+
+    }
+
 }
 
 

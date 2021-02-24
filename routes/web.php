@@ -21,7 +21,9 @@ Route::post('/suppliers', [suppController::class, 'store']);
 
 Route::get('/inventory', [InventoryController::class, 'index'])->name('inv');
 Route::post('/inventory', [InventoryController::class, 'store']);
-//Route::post('/inventory', [InventoryController::class, 'edit'])->name('inv.edit');
+
+Route::get('/inventory/edit/{id}', [InventoryController::class, 'finditem'])->name('inv.update');
+Route::post('/inventory/edit', [InventoryController::class, 'update']);
 
 Route::get('/transactions', [transactionController::class, 'index'])->name('tran');
 Route::post('/transactions', [transactionController::class, 'store']);

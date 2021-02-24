@@ -16,13 +16,13 @@
                     @include('tabs.tabs')
                     <div class="tab-content" id="ex1-content">
                         <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel"  aria-labelledby="ex1-tab-1">
-                            @include('tabs.contents.display.list',['Objects' => $Objects])
-                        </div>
-                        <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
                             <form action="{{ route('cus') }}" method="post" class="mb-4">
                                 @csrf
                                 @include('tabs.contents.register',['Objects' => $Objects])
                             </form>
+                        </div>
+                        <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+                            @include('tabs.contents.display.list',['Objects' => $Objects])
                         </div>
                     </div>
 

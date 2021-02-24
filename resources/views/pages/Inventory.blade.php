@@ -14,30 +14,30 @@
                         </div>
                     @endif
 
-                    @include('tabs.tabs')
-                    
+                    @include('layouts.tabs')
                     <div class="tab-content" id="ex1-content">
-                            <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel"  aria-labelledby="ex1-tab-1">
-                                @if ($Objects[$Objects["form"][0]]->count())
-                                @foreach ($Objects[$Objects["form"][0]] as $items)
-                                    @include('tabs.contents.display.form',['Objects' => $Objects])
-                                    @endforeach
-                                @else
-                                    <p>There are no {{$Objects['form'][0]}}</p>
-                                @endif
-                            </div>
-
-                        <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
-                            <form action="{{ route('inv') }}" method="post" class="mb-4">
+                        <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel"  aria-labelledby="ex1-tab-1">
+                            <form action="{{ route('inv')}}" method="post" class="mb-4">
                                 @csrf
-                                @if ($Objects['Supp']->count())
-                                    @include('tabs.contents.register',['Objects' => $Objects])
-                                @else
-                                    <p>There are no suppliers</p>
-                                @endif
+                                <div class="border-bottom  ">
+                                    @if ($Objects[$Objects["form"][0]]->count())
+                                        @foreach ($Objects[$Objects["form"][0]] as $items)
+                                            @include('tabs.display.controls',['Objects' => $Objects])
+                                            @include('tabs.form',['Objects' => $Objects])
+                                            @include('tabs.display.models')
+
+                                        @endforeach
+                                    @else
+                                        <p>There are no {{$Objects['form'][0]}}</p>
+                                    @endif
+                                </div>
                             </form>
                         </div>
-                    </div>          
+                        <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+                            @include('tabs.list',['Objects' => $Objects])
+                        </div>
+                    </div>
+        
                 </div>
             </div>
         </div>
@@ -55,22 +55,19 @@
         }
     }
     $(document).ready(function(){
-        $("#f2,#f8,#Image,#Catagory,#Origin").hide();
+        $("#f2,#Image").hide();
     });
-    $( "#edit" ).click(function() {
-        alert("cliked");
-        $( "textarea,input" ).removeClass( "form-control-plaintext" ).addClass( "form-control" ).attr("readonly", false);
-        $("#tabsMenu,#searchForm,#recordsContols,#staticCatagory,#staticOrigin,.non-editable").hide();
-        $("#Image,#Catagory,#Origin,#f8").show();
+
+    $("#new").click(function(){
+        var val = $("#new").val();
+        $("#ModalLongTitle").html(val);
     });
-    $( "#f8" ).click(function() {
-        alert("cliked");
-        $( "textarea,input" ).removeClass( "form-control" ).addClass( "form-control-plaintext" ).attr("readonly", false);
-        $("#tabsMenu,#searchForm,#recordsContols,#staticCatagory,#staticOrigin,.non-editable").show();
-        $("#Image,#Catagory,#Origin,#f8").hide();
+    $("#edit").click(function(){
+        var val = $("#edit").val();
+        $("#ModaleditTitle").html(val);
     });
-    $( "#ex1-tab-2" ).click(function() {
-        $("#Catagory,#Origin").show();
+    $("#new").click(function(){
+        alert();
     });
 </script>
 @endsection
