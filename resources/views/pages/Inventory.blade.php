@@ -69,5 +69,14 @@
     $("#new").click(function(){
         alert();
     });
+    $.ajax({
+        type: 'POST',
+        url:  '/api/myApiUrl',
+        data: myObject
+        success: function (data) {
+            console.log(data);
+        }
+    });
+});
 </script>
 @endsection

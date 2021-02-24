@@ -8,6 +8,7 @@
           </button>
         </div>
         <form action="{{ route('inv')}}" method="post" class="mb-4">
+          @csrf
 
             <div class="modal-body">
                     @include('tabs.display.create')
@@ -20,7 +21,7 @@
       </div>
     </div>
 </div>
-
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -31,12 +32,14 @@
         </button>
       </div>
       <form action='/inventory/edit' method="post" class="mb-4">
+        @csrf
+
           <div class="modal-body">
                   @include('tabs.display.update')
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <a href={{ route('inv.update',$items->id)}}><button type="submit" class="btn btn-primary">Save changes</button><a>
+              <button type="submit" class="btn btn-primary">Save changes</button>
           </div>
       </form>
     </div>
