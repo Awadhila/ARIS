@@ -28,6 +28,7 @@
     <div id="app" class="w-100 h-100">
         @include('layouts.navbar')
             @yield('content')
+        <script src="{{ asset('js/global.js') }}"></script>
     </div>
 </body>
 </html>

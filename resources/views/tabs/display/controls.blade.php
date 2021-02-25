@@ -13,9 +13,11 @@
                             Add New
                         </button>
                         <button  type="button" class="btn btn-primary ml-2" value ="Delete">Delete</button>
-                        <button  type="button"  value="Update" id="edit" class="btn btn-primary ml-2" data-toggle="modal" data-target="#update">
-                            Edit
+                        <button  type="button"  value="Update" id="edit" class="btn btn-primary ml-2">
+                            
+                           Edit
                         </button>
+
                     </nav>
                 </div>
             </div> 

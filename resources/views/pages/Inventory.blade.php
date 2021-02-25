@@ -17,21 +17,26 @@
                     @include('layouts.tabs')
                     <div class="tab-content" id="ex1-content">
                         <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel"  aria-labelledby="ex1-tab-1">
-                            <form action="{{ route('inv')}}" method="post" class="mb-4">
-                                @csrf
+
                                 <div class="border-bottom  ">
                                     @if ($Objects[$Objects["form"][0]]->count())
                                         @foreach ($Objects[$Objects["form"][0]] as $items)
                                             @include('tabs.display.controls',['Objects' => $Objects])
-                                            @include('tabs.form',['Objects' => $Objects])
+                                            <form action={{ route('inv.update',$items->id) }} method="post" class="mb-4">
+                                                @csrf
+                                                @include('tabs.form',['Objects' => $Objects])
+                                                
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                            </form>
+
                                             @include('tabs.display.models')
 
                                         @endforeach
+
                                     @else
                                         <p>There are no {{$Objects['form'][0]}}</p>
                                     @endif
                                 </div>
-                            </form>
                         </div>
                         <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
                             @include('tabs.list',['Objects' => $Objects])
@@ -44,39 +49,22 @@
     </div>
 </div>
 <script type="text/javascript">
-    function displayImg(input){
-        var file = $("input[type=file]").get(0).files[0];
-        if(file){
-            var reader = new FileReader();
-            reader.onload = function(){
-                $("#invImage").attr("src",reader.result)
-            }
-            reader.readAsDataURL(file);
-        }
-    }
-    $(document).ready(function(){
-        $("#f2,#Image").hide();
+
+$(document).ready(function(){
+        $("#f2,#origin_update,#supp,#f8,#Image,#catagory_update,#update").hide();
+    });
+    $( "#edit" ).click(function() {
+        alert("cliked");
+        $( "textarea,input" ).removeClass( "form-control-plaintext" ).addClass( "form-control" ).attr("readonly", false);
+        $("#tabsMenu,#searchForm,#recordsContols,#staticCatagory,#staticOrigin,.non-editable,#origin,#catagory").hide();
+        $("#Image,#origin_update,#supp,#catagory_update,#update").show();
+    });
+    $( "#update" ).click(function() {
+        alert("cliked");
+        $( "textarea,input" ).removeClass( "form-control" ).addClass( "form-control-plaintext" ).attr("readonly", false);
+        $("#tabsMenu,#searchForm,#recordsContols,#staticCatagory,#staticOrigin,.non-editable,#origin,#catagory").show();
+        $("#Image,#origin_update,#supp,#catagory_update,#update").hide();
     });
 
-    $("#new").click(function(){
-        var val = $("#new").val();
-        $("#ModalLongTitle").html(val);
-    });
-    $("#edit").click(function(){
-        var val = $("#edit").val();
-        $("#ModaleditTitle").html(val);
-    });
-    $("#new").click(function(){
-        alert();
-    });
-    $.ajax({
-        type: 'POST',
-        url:  '/api/myApiUrl',
-        data: myObject
-        success: function (data) {
-            console.log(data);
-        }
-    });
-});
 </script>
 @endsection

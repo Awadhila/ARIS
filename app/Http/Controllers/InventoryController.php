@@ -18,7 +18,7 @@ class InventoryController extends Controller
     }
     public function index()
     {
-        $form = array("Inventory", "Name", "Origin","Catagory","Price","stock","availible","damaged","Sold","Discription",);
+        $form = array("Inventory", "Name", "Origin","Catagory","Price","availible","Damaged","Sold","stock","Discription",);
 
         $Objects = array("Supp"=> supplier::get(),
                          "Inventory"=>Inventory::with('suppliers','sales','deliveries')->paginate(1), 
@@ -37,7 +37,9 @@ class InventoryController extends Controller
             'Origin' => 'required',Rule::in(['Local', 'Import']),
             'Catagory' =>'required',Rule::in(['fruit', 'vegetables']),
         ]);
+
         $Supp = DB::table('suppliers')->where('name',$request->Supplier)->first();
+
         Inventory::create([
             'name' => $request->Name,
             'supplier_id' => $Supp->id,
@@ -48,39 +50,27 @@ class InventoryController extends Controller
 
         return back();
     }
-    public function finditem($id)
-    {
-        $form = array("Inventory", "Name", "Origin","Catagory","Price","stock","availible","damaged","Sold","Discription",);
-        $data = DB::table('inventories')->where('id',$id)->paginate(1);
 
-        $Objects = array("Supp"=> supplier::get(),
-                 "Inventory"=>$data, 
-                 "form" =>$form
-       );
-        return view('pages.Inventory',[
-            'Objects' => $Objects,
-        ]);        
-         /*$this->validate($request, [
-            'staticName' => 'max:255|required',
+    public function update(Request $request, $id){
+        dd($request->input('Name'));
+        
+        $this->validate($request, [
+            'Name' => 'max:255|required',
             'Origin' => 'required',Rule::in(['Local', 'Import']),
             'Catagory' =>'required',Rule::in(['fruit', 'vegetables']),
-            'staticPrice' =>'required',Rule::in(['fruit', 'vegetables']),
+            'Price' =>'required',Rule::in(['fruit', 'vegetables']),
         ]);
+
         $image = $request->file('file');
         $imageName = time().'-'.$image->extention();
         $image->move(public_path('Images'),$imageName);
         $inv = Inventory::find($id);
-        $inv->name = $request->staticName;
+        $inv->name = $request->Name;
         $inv->Origin =$request->Origin;
         $inv->Catagory =$request->Catagory;
         $inv->price =$request->staticPrice;
-        $inv->discription = $request->staticDiscription;
+        $inv->discription = $request->Discription;
         $inv->image = $imageName;
-        $inv->save();
-        return back();*/
-    }
-    public function update(Request $request){
-        dd("aa");
 
     }
 
