@@ -7,6 +7,7 @@ use App\Models\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use  Illuminate\Http\UploadedFile;
 use App\Http\Controllers\Controller;
 
 
@@ -52,28 +53,31 @@ class InventoryController extends Controller
     }
 
     public function update(Request $request, $id){
-        dd($request->input('Name'));
-        
+
         $this->validate($request, [
             'Name' => 'max:255|required',
             'Origin' => 'required',Rule::in(['Local', 'Import']),
             'Catagory' =>'required',Rule::in(['fruit', 'vegetables']),
-            'Price' =>'required',Rule::in(['fruit', 'vegetables']),
+            'Price' =>'required|numeric',Rule::in(['fruit', 'vegetables']),
         ]);
+        if ($request->hasFile('Image')) {
+            $image = $request->file('Image');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('Images'),$imageName);
+            $inv = Inventory::find($id);
+            $inv->name = $request->Name;
+            $inv->trade_origin =$request->Origin;
+            $inv->Catagory =$request->Catagory;
+            $inv->price =$request->Price;
+            $inv->discription = $request->Discription;
+            $inv->image = $imageName;
+            $inv->save();        
 
-        $image = $request->file('file');
-        $imageName = time().'-'.$image->extention();
-        $image->move(public_path('Images'),$imageName);
-        $inv = Inventory::find($id);
-        $inv->name = $request->Name;
-        $inv->Origin =$request->Origin;
-        $inv->Catagory =$request->Catagory;
-        $inv->price =$request->staticPrice;
-        $inv->discription = $request->Discription;
-        $inv->image = $imageName;
+        $this->index();
+        return redirect()->route('inv');
 
     }
 
 }
 
-
+}

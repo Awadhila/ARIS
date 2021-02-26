@@ -22,7 +22,7 @@
                                     @if ($Objects[$Objects["form"][0]]->count())
                                         @foreach ($Objects[$Objects["form"][0]] as $items)
                                             @include('tabs.display.controls',['Objects' => $Objects])
-                                            <form action={{ route('inv.update',$items->id) }} method="post" class="mb-4">
+                                            <form action={{ route('inv.update',$items->id) }}  method="post" enctype="multipart/form-data"class="mb-4">
                                                 @csrf
                                                 @include('tabs.form',['Objects' => $Objects])
                                                 
@@ -51,19 +51,19 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-        $("#f2,#origin_update,#supp,#f8,#Image,#catagory_update,#update").hide();
+        $("#f2,#origin_update,#supp,#f8,#PreviewImage,#catagory_update,#update").hide();
     });
     $( "#edit" ).click(function() {
         alert("cliked");
         $( "textarea,input" ).removeClass( "form-control-plaintext" ).addClass( "form-control" ).attr("readonly", false);
         $("#tabsMenu,#searchForm,#recordsContols,#staticCatagory,#staticOrigin,.non-editable,#origin,#catagory").hide();
-        $("#Image,#origin_update,#supp,#catagory_update,#update").show();
+        $("#PreviewImage,#origin_update,#supp,#catagory_update,#update").show();
     });
     $( "#update" ).click(function() {
         alert("cliked");
         $( "textarea,input" ).removeClass( "form-control" ).addClass( "form-control-plaintext" ).attr("readonly", false);
         $("#tabsMenu,#searchForm,#recordsContols,#staticCatagory,#staticOrigin,.non-editable,#origin,#catagory").show();
-        $("#Image,#origin_update,#supp,#catagory_update,#update").hide();
+        $("#PreviewImage,#origin_update,#supp,#catagory_update,#update").hide();
     });
 
 </script>

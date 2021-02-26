@@ -4,29 +4,35 @@
   <div class="row">
     <div class="col">
       @if (array_key_exists("Supp",$Objects) && $Objects["form"][0] == "Inventory")
-      <div id="supp" class="form-group row">
-          <label for="Supplier" class="col-sm-4 col-form-label">Supplier</label>
+      <div class="form-group row" id = "supp">
+        <label for="Supplier" class="col-sm-4 col-form-label">Origin</label>
           <div class="col-sm-7">
-              <select  class="form-control col-sm-10  name="Supplier"  id="Supplier" >
-                @foreach ($Objects['Supp'] as $supp) 
-                      @if ($items->supplier_id == $supp->id)
-                          <option>{{$supp->name}}</option>
-                      @endif
-                  @endforeach
-                  @foreach ($Objects['Supp'] as $supp) 
-                      @if ($items->supplier_id != $supp->id)
-                          <option>{{$supp->name}}</option>
-                      @endif
-                  @endforeach
-              </select>
+            <select  class="form-control" name="Supplier"  id="Supplier" >
+              @foreach ($Objects['Supp'] as $supp) 
+                @if ($items->supplier_id == $supp->id)
+                  <option>{{$supp->name}}</option>
+                @endif
+              @endforeach
+              @foreach ($Objects['Supp'] as $supp) 
+                @if ($items->supplier_id != $supp->id)
+                  <option>{{$supp->name}}</option>
+                @endif
+              @endforeach
+            </select>
           </div>
-      </div>
+        </div>
       @endif
 
+
       <div class="form-group row">
-        <label for="Name" class="col-sm-4 col-form-label">{{$Objects["form"][1]}} : </label>
+        <label for="Name" class="col-sm-4 col-form-label">{{$Objects['form'][1]}}</label>
         <div class="col-sm-7">
-          <input type="text" readonly class="form-control-plaintext" id="Name" value={{$items->name}} >
+          <input type="text" readonly class="form-control-plaintext @error('Name') is-invalid @enderror" name="Name" id="Name" value={{$items->name}}>
+            @error('Name')
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                  </span>
+            @enderror
         </div>
       </div>
       <div class="form-group row" id="origin" >
@@ -81,11 +87,15 @@
             </div>
           @endif
       </div>
+
       <div class="form-group row">
-        <label for="staticStock" class="col-sm-4 col-form-label">{{$Objects["form"][4]}} : </label>
-        <div class="col-sm-7">
-          <input type="text" readonly class="form-control-plaintext" id="staticStock" value={{$items->price}} >
-        </div>
+        <label for="Price" class="col-sm-4 col-form-label">Price</label>
+          <div class="col-sm-7">
+            <input type="text" readonly class="form-control-plaintext @error('Price') is-invalid @enderror" name="Price"  id="Price" value={{$items->price}}  >
+            @error('Price')
+              <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span>
+            @enderror
+          </div>
       </div>
       <div class="form-group row non-editable">
         <label for="staticAvailible" class="col-sm-4 col-form-label">{{$Objects["form"][5]}} : </label>
@@ -113,16 +123,22 @@
       </div>
     </div>
     <div class="col">
-      <div id="Image" class="card" style="width: 90%;">
+      <img src="{{asset('images')}}/{{$items->image}}"  alt="Inventory Image" style="width: 50%;" class="img-thumbnail rounded mx-auto d-block">
+
+      <div id="PreviewImage" class="card" style="width: 90%;">
         <img id="invImage"  alt="Inventory Image" style="width: 50%;" class="img-thumbnail rounded mx-auto d-block">
         <div class="card-body">
           <label for="Image">Enter Image Inventory</label>
-          <input name="file" type="file" class="form-control-file" id="Image" onchange="displayImg(this)">
+          <input name="Image" type="file" class="form-control-file" onchange="displayImg(this)">
         </div>
       </div>
-      <div class="form-group row">
+
+      <div class="form-group col">
         <label for="Discription" class="col-sm-4 col-form-label">{{$Objects["form"][9]}}</label>
-        <textarea readonly class="form-control-plaintext" id="Discription" rows="3">{{$items->discription}}</textarea>
+            <textarea readonly class="form-control-plaintext" name="Discription" id="Discription" rows="3">{{$items->discription}}</textarea>
+            @error('Price')
+              <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span>
+            @enderror
       </div>
     </div>
   </div>
