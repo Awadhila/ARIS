@@ -13,11 +13,9 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
                     @include('layouts.tabs')
                     <div class="tab-content" id="ex1-content">
                         <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel"  aria-labelledby="ex1-tab-1">
-
                                 <div class="border-bottom  ">
                                     @if ($Objects[$Objects["form"][0]]->count())
                                         @foreach ($Objects[$Objects["form"][0]] as $items)
@@ -32,7 +30,6 @@
                                             @include('tabs.display.models')
 
                                         @endforeach
-
                                     @else
                                         <p>There are no {{$Objects['form'][0]}}</p>
                                     @endif
@@ -51,20 +48,20 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-        $("#f2,#origin_update,#supp,#f8,#PreviewImage,#catagory_update,#update").hide();
-    });
-    $( "#edit" ).click(function() {
-        alert("cliked");
-        $( "textarea,input" ).removeClass( "form-control-plaintext" ).addClass( "form-control" ).attr("readonly", false);
-        $("#tabsMenu,#searchForm,#recordsContols,#staticCatagory,#staticOrigin,.non-editable,#origin,#catagory").hide();
-        $("#PreviewImage,#origin_update,#supp,#catagory_update,#update").show();
-    });
-    $( "#update" ).click(function() {
-        alert("cliked");
-        $( "textarea,input" ).removeClass( "form-control" ).addClass( "form-control-plaintext" ).attr("readonly", false);
-        $("#tabsMenu,#searchForm,#recordsContols,#staticCatagory,#staticOrigin,.non-editable,#origin,#catagory").show();
-        $("#PreviewImage,#origin_update,#supp,#catagory_update,#update").hide();
-    });
+    $("#f2,#origin_update,#supp,#f8,#PreviewImage,#catagory_update,#update").hide();
+});
+$( "#edit" ).click(function() {
+    alert("cliked");
+    $( "textarea,input" ).removeClass( "form-control-plaintext" ).addClass( "form-control" ).attr("readonly", false);
+    $("#tabsMenu,#searchForm,#recordsContols,#staticCatagory,#staticOrigin,.non-editable,#origin,#catagory").hide();
+    $("#PreviewImage,#origin_update,#supp,#catagory_update,#update").show();
+});
+$( "#update" ).click(function() {
+    alert("cliked");
+    $( "textarea,input" ).removeClass( "form-control" ).addClass( "form-control-plaintext" ).attr("readonly", false);
+    $("#tabsMenu,#searchForm,#recordsContols,#staticCatagory,#staticOrigin,.non-editable,#origin,#catagory").show();
+    $("#PreviewImage,#origin_update,#supp,#catagory_update,#update").hide();
+});
 
 </script>
 @endsection

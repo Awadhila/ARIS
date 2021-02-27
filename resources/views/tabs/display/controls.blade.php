@@ -3,7 +3,7 @@
     <div class="col-sm-10">
         <div id="recordsContols"class="container">
                 <div class="row-sm">
-                {{$Objects["Inventory"]->links(("pagination::bootstrap-4")) }}
+                {{$Objects['form_view']->links(("pagination::bootstrap-4")) }}
                 </div>
                 <div class="row-sm">
                     <nav>
@@ -11,9 +11,8 @@
                         <button  id="new" value="Create" type="button" class="btn btn-primary ml-2" data-toggle="modal" data-target="#create">
                             Add New
                         </button>
-                        <button  type="button" class="btn btn-primary ml-2" value ="Delete">Delete</button>
-                        <button  type="button"  value="Update" id="edit" class="btn btn-primary ml-2">
-                            
+                        <a id="delete" class="link-unstyled" href=""><button  id="delBtn" type="button" class="btn btn-primary ml-2" value ="Delete">Delete</button></a>
+                        <button  type="button"  value="Update" id="edit" class="btn btn-primary ml-2"> 
                            Edit
                         </button>
 

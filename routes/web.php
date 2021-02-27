@@ -15,6 +15,8 @@ Route::get('/',[dashboardController::class, 'index']);
 
 Route::get('/customers', [cusController::class, 'index'])->name('cus');
 Route::post('/customers', [cusController::class, 'store']);
+Route::post('/customers/edit/{id}', [cusController::class, 'update'])->name('cus.update');
+Route::get('/customers/delete/{id}', [cusController::class, 'delete'])->name('cus.delete');
 
 Route::get('/suppliers', [suppController::class, 'index'])->name('supp');
 Route::post('/suppliers', [suppController::class, 'store']);

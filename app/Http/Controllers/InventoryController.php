@@ -25,7 +25,6 @@ class InventoryController extends Controller
                          "Inventory"=>Inventory::with('suppliers','sales','deliveries')->paginate(1), 
                          "form" =>$form
                         );
-
         return view('pages.Inventory',[
             'Objects' => $Objects,
         ]);  
