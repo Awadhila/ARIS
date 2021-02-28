@@ -30,6 +30,9 @@
 
                                     @endforeach
                                 @else
+                                    @include('tabs.display.controls',['Objects' => $Objects])
+                                    @include('tabs.display.models')
+
                                     <p>There are no {{$Objects['form'][0]}}</p>
                                 @endif
                             </div>
@@ -45,10 +48,13 @@
     </div>
 </div>
 <script type="text/javascript">
-
+    $( "#delBtn" ).click(function (){
+        var url = '{{ route("cus.delete", ":id") }}';
+        url = url.replace(':id', $(this).val());
+        $("#delete").attr("href", url )
+    });
     $(document).ready(function(){
         $("#update").hide();
-        $("#delete").attr("href", "{{ route('cus.delete',$items->id) }}")
     });
     $( "#edit" ).click(function() {
         alert("cliked");

@@ -47,10 +47,13 @@
     </div>
 </div>
 <script type="text/javascript">
-
+    $( "#delBtn" ).click(function (){
+        var url = '{{ route("supp.delete", ":id") }}';
+        url = url.replace(':id', $(this).val());
+        $("#delete").attr("href", url )
+    });
     $(document).ready(function(){
         $("#update").hide();
-        $("#delete").attr("href", "{{ route('supp.delete',$items->id) }}")
     });
     $( "#edit" ).click(function() {
         alert("cliked");
