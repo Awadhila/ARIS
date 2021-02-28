@@ -5,15 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Inventory;
-use Illuminate\Support\Facades;
+
 class cusController extends Controller
 {
     public function __construct()
     {
         $this ->middleware('auth');
     }
-
     public function index()
     {
         $form = array("Customer", "Name", "Contact");
@@ -25,7 +23,6 @@ class cusController extends Controller
             'Objects' => $Objects,
         ])->with(compact($Objects['form_view'],$Objects['list_view'])); 
     }
-
     public function store(Request $request)
     {
         $this->validate($request, [

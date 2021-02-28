@@ -21,19 +21,18 @@
                             <div class="border-bottom  ">
                                 @if ($Objects['form_view']->count())
                                     @foreach ($Objects['form_view'] as $items)
-                                        @include('tabs.display.controls',['Objects' => $Objects])
+                                    @include('tabs.display.controls',['Objects' => $Objects])
                                         <form action={{ route('supp.update',$items->id) }} method="post" class="mb-4">
                                             @csrf
                                             @include('tabs.form',['Objects' => $Objects])
                                             <button id="update" type="submit" class="btn btn-primary">Save changes</button>
-
                                         </form>
-                                        @include('tabs.display.models')
-
                                     @endforeach
                                 @else
+                                    @include('tabs.display.controls',['Objects' => $Objects])
                                     <p>There are no {{$Objects['form'][0]}}</p>
                                 @endif
+                                @include('tabs.display.models')
                             </div>
                         </div>
                         <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">

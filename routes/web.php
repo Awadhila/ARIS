@@ -5,7 +5,6 @@ use App\Http\Controllers\cusController;
 use App\Http\Controllers\suppController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\InventoryController;
-use App\Http\Controllers\Auth\loginController;
 use App\Http\Controllers\transactionController;
 use App\Http\Controllers\Auth\registerController;
 
@@ -25,8 +24,8 @@ Route::get('/suppliers/delete/{id}', [suppController::class, 'delete'])->name('s
 
 Route::get('/inventory', [InventoryController::class, 'index'])->name('inv');
 Route::post('/inventory', [InventoryController::class, 'store']);
-
 Route::post('/inventory/edit/{id}', [InventoryController::class, 'update'])->name('inv.update');
+Route::get('/inventory/delete/{id}', [InventoryController::class, 'delete'])->name('inv.delete');
 
 Route::get('/transactions', [transactionController::class, 'index'])->name('tran');
 Route::post('/transactions', [transactionController::class, 'store']);

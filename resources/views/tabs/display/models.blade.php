@@ -22,7 +22,13 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                @if ($Objects['form'][0] == "Inventory")
+                    @if ($Objects["Supp"]->count())
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    @endif
+                @else
                     <button type="submit" class="btn btn-primary">Save changes</button>
+                @endif
                 </div>
             </form>
         </div>
