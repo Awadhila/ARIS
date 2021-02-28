@@ -22,7 +22,8 @@ class InventoryController extends Controller
         $form = array("Inventory", "Name", "Origin","Catagory","Price","availible","Damaged","Sold","stock","Discription",);
 
         $Objects = array("Supp"=> supplier::get(),
-                         "Inventory"=>Inventory::with('suppliers','sales','deliveries')->paginate(1), 
+                         "form_view"=>Inventory::with('suppliers','sales','deliveries')->Paginate(1), 
+                         "list_view"=>Inventory::with('suppliers','sales','deliveries')->Paginate(10), 
                          "form" =>$form
                         );
         return view('pages.Inventory',[

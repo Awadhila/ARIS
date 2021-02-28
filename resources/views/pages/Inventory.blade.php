@@ -17,7 +17,7 @@
                     <div class="tab-content" id="ex1-content">
                         <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel"  aria-labelledby="ex1-tab-1">
                                 <div class="border-bottom  ">
-                                    @if ($Objects[$Objects["form"][0]]->count())
+                                    @if ($Objects[$Objects["form_view"][0]]->count())
                                         @foreach ($Objects[$Objects["form"][0]] as $items)
                                             @include('tabs.display.controls',['Objects' => $Objects])
                                             <form action={{ route('inv.update',$items->id) }}  method="post" enctype="multipart/form-data"class="mb-4">
@@ -49,6 +49,8 @@
 
 $(document).ready(function(){
     $("#f2,#origin_update,#supp,#f8,#PreviewImage,#catagory_update,#update").hide();
+    $("#update").hide();
+    $("#delete").attr("href", "{{ route('inv.delete',$items->id) }}")
 });
 $( "#edit" ).click(function() {
     alert("cliked");
