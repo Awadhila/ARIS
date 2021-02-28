@@ -15,31 +15,55 @@
                         {{ session('status') }}
                     </div>
                     @endif
-                    @include('tabs.tabs')
+                    @include('layouts.tabs')
                     <div class="tab-content" id="ex1-content">
                         <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel"  aria-labelledby="ex1-tab-1">
-                            @include('tabs.contents.display.list',['Objects' => $Objects])
+                            <div class="border-bottom  ">
+                                @if ($Objects['form_view']->count())
+                                    @foreach ($Objects['form_view'] as $items)
+                                        @include('tabs.display.controls',['Objects' => $Objects])
+                                        <form action={{ route('supp.update',$items->id) }} method="post" class="mb-4">
+                                            @csrf
+                                            @include('tabs.form',['Objects' => $Objects])
+                                            <button id="update" type="submit" class="btn btn-primary">Save changes</button>
+
+                                        </form>
+                                        @include('tabs.display.models')
+
+                                    @endforeach
+                                @else
+                                    <p>There are no {{$Objects['form'][0]}}</p>
+                                @endif
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
-                            <form action="{{ route('supp') }}" method="post" class="mb-4">
-                                @csrf
-                                @include('tabs.contents.register',['Objects' => $Objects])
-                            </form>
+                            @include('tabs.list',['Objects' => $Objects])
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
+
     $(document).ready(function(){
-        $("#f3").hide();
-        $("#f4").hide();
-        $("#f5").hide();
-        $("#f6").hide();
-
-
+        $("#update").hide();
+        $("#delete").attr("href", "{{ route('supp.delete',$items->id) }}")
     });
+    $( "#edit" ).click(function() {
+        alert("cliked");
+        $( "input" ).removeClass( "form-control-plaintext" ).addClass( "form-control" ).attr("readonly", false);
+        $("#tabsMenu,#searchForm,#recordsContols").hide();
+        $("#update").show();
+    });
+    $( "#update" ).click(function() {
+        alert("cliked");
+        $( "input" ).removeClass( "form-control" ).addClass( "form-control-plaintext" ).attr("readonly", false);
+        $("#tabsMenu,#searchForm,#recordsContols").show();
+        $("#update").hide();
+    });
+
 </script>
 @endsection

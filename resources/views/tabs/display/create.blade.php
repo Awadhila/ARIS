@@ -1,4 +1,4 @@
-@if ($Objects["form"][0] == "Customer")
+@if ($Objects["form"][0] == "Customer" || $Objects["form"][0] ==  "Supplier")
     <div class="col">
         <div class="form-group row">
             <label for="Name" class="col-sm-4 col-form-label">{{$Objects['form'][1]}}</label>

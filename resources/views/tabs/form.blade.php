@@ -1,7 +1,7 @@
 <p class="col-sm-3 col-form-label">{{$Objects["form"][0]}}</p>
 <div class="container">
     <div class="row">
-        @if ($Objects["form"][0] == "Customer")
+        @if ($Objects["form"][0] == "Customer" || $Objects["form"][0] ==  "Supplier")
             <div class="col">
                 <div class="form-group row">
                     <label for="Name" class="col-sm-4 col-form-label">{{$Objects['form'][1]}}</label>

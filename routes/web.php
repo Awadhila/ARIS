@@ -20,6 +20,8 @@ Route::get('/customers/delete/{id}', [cusController::class, 'delete'])->name('cu
 
 Route::get('/suppliers', [suppController::class, 'index'])->name('supp');
 Route::post('/suppliers', [suppController::class, 'store']);
+Route::post('/suppliers/edit/{id}', [suppController::class, 'update'])->name('supp.update');
+Route::get('/suppliers/delete/{id}', [suppController::class, 'delete'])->name('supp.delete');
 
 Route::get('/inventory', [InventoryController::class, 'index'])->name('inv');
 Route::post('/inventory', [InventoryController::class, 'store']);
