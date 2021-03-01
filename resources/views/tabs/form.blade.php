@@ -17,7 +17,7 @@
                 <div class="form-group row">
                     <label for="contact" class="col-sm-4 col-form-label">{{$Objects['form'][2]}}</label>
                     <div class="col-sm-7">
-                        <input type="text" readonly class="form-control-plaintext @error('Contact') is-invalid @enderror" name="contact" id="contact" value={{$items->contact}}>
+                        <input type="text" readonly class="form-control-plaintext @error('Contact') is-invalid @enderror" name="contact" id="contact" value="{{$items->contact}}">
                         @error('Contact')
                             <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
