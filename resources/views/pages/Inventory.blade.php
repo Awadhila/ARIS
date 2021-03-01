@@ -20,6 +20,7 @@
                                 @if ($Objects["form_view"]->count())
                                     @foreach ($Objects["form_view"] as $items)
                                     @include('tabs.display.controls',['Objects' => $Objects])
+
                                         <form action={{ route('inv.update',$items->id) }}  method="post" enctype="multipart/form-data"class="mb-4">
                                             @csrf
                                             @include('tabs.form',['Objects' => $Objects])

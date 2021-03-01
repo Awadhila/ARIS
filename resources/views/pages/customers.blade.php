@@ -17,9 +17,10 @@
                     <div class="tab-content" id="ex1-content">
                         <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel"  aria-labelledby="ex1-tab-1">
                             <div class="border-bottom  ">
-                                @include('tabs.display.controls',['Objects' => $Objects])
                                 @if ($Objects['form_view']->count())
                                     @foreach ($Objects['form_view'] as $items)
+                                    @include('tabs.display.controls',['Objects' => $Objects])
+
                                         <form action={{ route('cus.update',$items->id) }} method="post" class="mb-4">
                                             @csrf
                                             @include('tabs.form',['Objects' => $Objects])

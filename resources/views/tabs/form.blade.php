@@ -148,6 +148,9 @@
                         </div>      
                     </div>
                     <div class="col">
+                        <div class="form-group row  non-editable">
+                            <img id="invImage"  src="{{asset('Images')}}/{{$items->image}}" alt="Inventory Image" style="width: 50%;" class="img-thumbnail rounded mx-auto d-block">
+                        </div>
                         <div id="PreviewImage" class="card" style="width: 90%;">
                             <img id="invImage"  alt="Inventory Image" style="width: 50%;" class="img-thumbnail rounded mx-auto d-block">
                             <div class="card-body">

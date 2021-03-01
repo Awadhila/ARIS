@@ -58,25 +58,28 @@ class InventoryController extends Controller
             'Catagory' =>'required',Rule::in(['fruit', 'vegetables']),
             'Price' =>'required|numeric',Rule::in(['fruit', 'vegetables']),
         ]);
+        $inv = Inventory::find($id);
+
         if ($request->hasFile('Image')) {
             $image = $request->file('Image');
             $imageName = time().'.'.$image->getClientOriginalExtension();
             $image->move(public_path('Images'),$imageName);
-            $inv = Inventory::find($id);
-            $inv->name = $request->Name;
-            $inv->trade_origin =$request->Origin;
-            $inv->Catagory =$request->Catagory;
-            $inv->price =$request->Price;
-            $inv->discription = $request->Discription;
             $inv->image = $imageName;
-            $inv->save();        
         }
+        $inv->name = $request->Name;
+        $inv->trade_origin =$request->Origin;
+        $inv->Catagory =$request->Catagory;
+        $inv->price =$request->Price;
+        $inv->discription = $request->Discription;
+        $inv->save();        
         $this->index();
         return redirect()->route('inv');
     }
     public function delete( $id){
         $inv = Inventory::find($id);
-        unlink(public_path('Images').'/'.$inv->image);
+        if ($inv->image != null){
+            unlink(public_path('Images').'/'.$inv->image);
+        }
         $inv->delete();
         $this->index();
         return redirect()->route('inv');

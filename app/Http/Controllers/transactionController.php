@@ -13,14 +13,9 @@ class transactionController extends Controller
     public function index()
     {
         $form = array("Customer", "Name", "Contact");
-
-
-        $transaction = array("delivery" => delivery::get(), 
-                             "payment" => payment::get(),
-                             "sales" =>sales::get(),
-                             "payment" => Inventory::get());
+        $Objects = array("shop_view"=>Inventory::with('suppliers','sales','deliveries')->Paginate(9, ['*'], 'shop_view'));
         return view('pages.transaction',[
-
-        ]);   
+            'Objects' => $Objects,
+            ])->with(compact($Objects['shop_view']));
     }
 }
