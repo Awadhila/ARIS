@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\customer;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class cusSeeder extends Seeder
 {
@@ -14,7 +15,7 @@ class cusSeeder extends Seeder
      */
     public function run()
     {
-        
+        DB::table('customers')->delete();
         customer::factory()->count(20)->forUser([
             'name' => 'Awadh Al-Rae',
         ])->create();

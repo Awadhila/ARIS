@@ -62,7 +62,7 @@ class InventoryController extends Controller
 
         if ($request->hasFile('Image')) {
             $image = $request->file('Image');
-            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $imageName = time().'.'.$inv->Name;
             $image->move(public_path('Images'),$imageName);
             $inv->image = $imageName;
         }
