@@ -29,23 +29,23 @@
 
 <script type="text/javascript">
 
-
- 
-        
-
-    $("#atc").click(function(){
+    $(".atc").click(function(){
         var items = @json($Objects["shop_view"]);
-        var ID =  $(this).val();
-
+        var ID = $(this).val();
         items.data.forEach(function (item, index) {
             myFunction(ID, item, index)
         });
         function myFunction(myid, item, index) {
-            console.log(item.id);
-            console.log(ID);
+            var url = '{{asset("Images")}}/:id';
+            if (myid == item.id){
+                url = url.replace(':id', item.image);
+                $("#invImg").attr("src", url )
+                $('#invTitleModel').text(item.name);
+                $('#invPrice').text("Price: " + item.price);
+
+            }
         } 
     });
-
     $("#sale").click(function(){
         $("#tranasactions_type_btn").hide();
         $("#invH3").show();
@@ -62,6 +62,5 @@
          
     });
 
-    
 </script>
 @endsection

@@ -19,7 +19,7 @@
             <p class="card-text"><small class="text-muted">Last updated {{$items->updated_at}}</small></p>
             <div class="row">
                 <div class="col"><p>Price: {{$items->price}}</p></div>
-                <button id="atc" value="{{$items->id}}" type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddToCart">
+                <button  value="{{$items->id}}" type="button" class="btn btn-primary atc" data-toggle="modal" data-target="#AddToCart">
                     Add to Cart
                 </button>
                   
