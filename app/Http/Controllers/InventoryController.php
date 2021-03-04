@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 
 class InventoryController extends Controller
@@ -51,7 +52,6 @@ class InventoryController extends Controller
     }
 
     public function update(Request $request, $id){
-
         $this->validate($request, [
             'Name' => 'max:255|required',
             'Origin' => 'required',Rule::in(['Local', 'Import']),
@@ -61,10 +61,14 @@ class InventoryController extends Controller
         $inv = Inventory::find($id);
 
         if ($request->hasFile('Image')) {
+            if ($inv->image != null){
+                Storage::delete('/public/Images/'.$inv->image);
+            }
             $image = $request->file('Image');
-            $imageName = time().'.'.$inv->Name;
-            $image->move(public_path('Images'),$imageName);
+            $imageName = $request->Name.'-'.time().'.'.$image->extension();
+            $request->file('Image')->storeAs('\public\Images',$imageName);
             $inv->image = $imageName;
+
         }
         $inv->name = $request->Name;
         $inv->trade_origin =$request->Origin;
@@ -78,7 +82,8 @@ class InventoryController extends Controller
     public function delete( $id){
         $inv = Inventory::find($id);
         if ($inv->image != null){
-            unlink(public_path('Images').'/'.$inv->image);
+            Storage::delete('upload/test.png');
+            Storage::delete("\public\Images\'".$inv->image);
         }
         $inv->delete();
         $this->index();

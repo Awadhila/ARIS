@@ -16,8 +16,6 @@ class suppSeeder extends Seeder
     public function run()
     {
         DB::table('suppliers')->delete();
-        supplier::factory()->count(4)->forUser([
-            'name' => 'Awadh Al-Rae',
-        ])->create();    
+        supplier::factory()->count(4)->create();    
     }
 }

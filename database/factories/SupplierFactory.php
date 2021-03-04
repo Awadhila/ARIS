@@ -3,8 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\supplier;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SupplierFactory extends Factory
 {
@@ -24,7 +25,9 @@ class SupplierFactory extends Factory
     {
         
         return [
-            'name' => $this->faker->unique()->randomElement([
+            'user_id' => DB::table('users')->where('name','Awadh Al-Rae')->first()->id,
+
+            'name' => $this->faker->randomElement([
                 'Mwangaza',
                 'International Greengrocers',
                 'Gong',

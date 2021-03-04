@@ -16,8 +16,6 @@ class cusSeeder extends Seeder
     public function run()
     {
         DB::table('customers')->delete();
-        customer::factory()->count(20)->forUser([
-            'name' => 'Awadh Al-Rae',
-        ])->create();
+        customer::factory()->count(20)->create();
     }
 }

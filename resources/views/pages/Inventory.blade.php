@@ -45,6 +45,20 @@
     </div>
 </div>
 <script type="text/javascript">
+    function displayImg(input){
+        alert('running');
+
+        var file = $("input[type=file]").get(0).files[0];
+        console.log(file);
+
+        if(file){
+            var reader = new FileReader();
+            reader.onload = function(){
+                $("#invImage").attr("src",reader.result)
+            }
+            reader.readAsDataURL(file);
+        }
+    }
     $( "#delBtn" ).click(function (){
         var url = '{{ route("inv.delete", ":id") }}';
         url = url.replace(':id', $(this).val());
