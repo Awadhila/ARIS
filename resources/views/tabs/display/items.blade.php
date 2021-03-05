@@ -2,9 +2,9 @@
     <div class="card"  style="width: 20rem;">
         <img class="card-img-top" 
             @if ($items->image != null)
-                src="{{asset('Images')}}/{{$items->image}}"
+                src="{{asset('storage/Images/')}}/{{$items->image}}"
             @else
-                src="{{asset('Images/null.png')}}"
+                src="{{asset('storage/Images/')}}/null.png"
             @endif
         >
         <div class="card-body">

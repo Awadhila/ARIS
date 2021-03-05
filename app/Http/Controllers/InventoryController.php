@@ -62,11 +62,11 @@ class InventoryController extends Controller
 
         if ($request->hasFile('Image')) {
             if ($inv->image != null){
-                Storage::delete('/public/Images/'.$inv->image);
+                Storage::delete('/public/Images'.$inv->image);
             }
             $image = $request->file('Image');
             $imageName = $request->Name.'-'.time().'.'.$image->extension();
-            $request->file('Image')->storeAs('\public\Images',$imageName);
+            $request->file('Image')->storeAs('/public/Images',$imageName);
             $inv->image = $imageName;
 
         }

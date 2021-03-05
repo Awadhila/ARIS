@@ -36,7 +36,7 @@
             myFunction(ID, item, index)
         });
         function myFunction(myid, item, index) {
-            var url = '{{asset("Images")}}/:id';
+            var url = "{{asset('storage/Images/')}}/:id";
             if (myid == item.id){
                 url = url.replace(':id', item.image);
                 $("#invImg").attr("src", url )
