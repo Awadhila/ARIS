@@ -13,12 +13,12 @@
                         <div id="tranasactions_type_btn" class="container-sm">
                             <button type="button" id="sale"class="btn btn-primary btn-lg btn-block">Sale Inventories</button>
                             <button type="button" id="receive" class="btn btn-secondary btn-lg btn-block">Receive Inventory</button>
+
                         </div>
                         <h3 id="invH3" class= "mt-5 text-center">Heading</h3>
                         <div id="grid">
                             @include('layouts.grid')
                             @include('tabs.display.quantity')
-
                         </div>
                     </div>
                 </div>
@@ -28,38 +28,14 @@
 
 
 <script type="text/javascript">
+// ***** Shoping Cart Functions Start **********
+    const items = @json($Objects["shop_view"]);
+    var url = "{{asset('storage/Images/')}}/:id";
 
-    $(".atc").click(function(){
-        var items = @json($Objects["shop_view"]);
-        var ID = $(this).val();
-        items.data.forEach(function (item, index) {
-            myFunction(ID, item, index)
-        });
-        function myFunction(myid, item, index) {
-            var url = "{{asset('storage/Images/')}}/:id";
-            if (myid == item.id){
-                url = url.replace(':id', item.image);
-                $("#invImg").attr("src", url )
-                $('#invTitleModel').text(item.name);
-                $('#invPrice').text("Price: " + item.price);
-
-            }
-        } 
-    });
-    $("#sale").click(function(){
-        $("#tranasactions_type_btn").hide();
-        $("#invH3").show();
-        $("#grid").show();
-    });
-    $("#receive").click(function(){
-        $("#tranasactions_type_btn").hide();
-        $("#invH3").show();
-        $("#grid").show();
-    });
     $(document).ready(function(){
         $("#invH3").hide();
         $("#grid").hide();
-         
+        shopingCart.clearCart();   
     });
 
 </script>

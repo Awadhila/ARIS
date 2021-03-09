@@ -20,7 +20,7 @@
                     <span>-</span>
                   </button>
                 </span>
-                <input type="text" id="quantity" name="quantity" class="col-sm-4 form-control input-number" value="0" min="1" max="100">
+                <input type="text" id="quantity" name="quantity" class="col-sm-4 form-control input-number" value="1" min="1" max="100">
                 <span class="input-group-btn col-sm-2">
                     <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
                         <span>+</span>
@@ -31,7 +31,8 @@
           </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Add</button>
+          <button type="button" id="add" class="btn btn btn-primary">Add</button>
+
         </div>
       </div>
     </div>
