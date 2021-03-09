@@ -47,26 +47,13 @@
     </div>
 </div>
 <script type="text/javascript">
-    $( "#delBtn" ).click(function (){
-        var url = '{{ route("cus.delete", ":id") }}';
-        url = url.replace(':id', $(this).val());
-        $("#delete").attr("href", url )
-    });
+
+    var url = '{{ route("cus.delete", ":id") }}';
+
     $(document).ready(function(){
         $("#update").hide();
     });
-    $( "#edit" ).click(function() {
-        alert("cliked");
-        $( "input" ).removeClass( "form-control-plaintext" ).addClass( "form-control" ).attr("readonly", false);
-        $("#tabsMenu,#searchForm,#recordsContols").hide();
-        $("#update").show();
-    });
-    $( "#update" ).click(function() {
-        alert("cliked");
-        $( "input" ).removeClass( "form-control" ).addClass( "form-control-plaintext" ).attr("readonly", false);
-        $("#tabsMenu,#searchForm,#recordsContols").show();
-        $("#update").hide();
-    });
+
 
 </script>
 @endsection

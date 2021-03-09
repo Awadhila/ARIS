@@ -59,26 +59,12 @@
             reader.readAsDataURL(file);
         }
     }
-    $( "#delBtn" ).click(function (){
-        var url = '{{ route("inv.delete", ":id") }}';
-        url = url.replace(':id', $(this).val());
-        $("#delete").attr("href", url )
-    });
+    var url = '{{ route("inv.delete", ":id") }}';
+
     $(document).ready(function(){
         $("#update,#origin_update,#supp,#f8,#PreviewImage,#catagory_update,#update").hide();
     });
-    $( "#edit" ).click(function() {
-        alert("cliked");
-        $( "textarea,input" ).removeClass( "form-control-plaintext" ).addClass( "form-control" ).attr("readonly", false);
-        $("#tabsMenu,#searchForm,#recordsContols,#staticCatagory,#staticOrigin,.non-editable,#origin,#catagory").hide();
-        $("#PreviewImage,#origin_update,#supp,#catagory_update,#update").show();
-    });
-    $( "#update" ).click(function() {
-        alert("cliked");
-        $( "textarea,input" ).removeClass( "form-control" ).addClass( "form-control-plaintext" ).attr("readonly", false);
-        $("#tabsMenu,#searchForm,#recordsContols,#staticCatagory,#staticOrigin,.non-editable,#origin,#catagory").show();
-        $("#PreviewImage,#origin_update,#supp,#catagory_update,#update").hide();
-    });
+ 
 
 </script>
 @endsection

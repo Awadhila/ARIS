@@ -14,19 +14,19 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalCenterTitle">My Cart</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            <div class="modal-body">
-                <h5>Popover in a modal</h5>
-                <p>This <a href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" data-content="Popover body content is set in this attribute.">button</a> triggers a popover on click.</p>
-                <hr>
-                <h5>Tooltips in a modal</h5>
-                <p><a href="#" class="tooltip-test" title="Tooltip">This link</a> and <a href="#" class="tooltip-test" title="Tooltip">that link</a> have tooltips on hover.</p>
-              </div>
+          <div id="cart" class="modal-body">
+                <div class="row mb-1">
+                  <div class="col-sm-2 ">Name</div>
+                  <div class="col-sm-2">Quantity</div>
+                  <div class="col-sm-3">Price/Unit</div>
+                  <div class="col-sm-2">Total</div>
+                  <div class="col-sm-3">Buttons</div>
+                </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
