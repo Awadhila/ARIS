@@ -10,7 +10,7 @@
     <button type="button" class="btn btn-outline-secondary  float-right position-absolute" data-toggle="modal" data-target=".bd-example-modal-lg" style="position: -webkit-sticky; position: sticky;">Cart</button>
 </div>
 
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div id="cartModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -19,6 +19,8 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+          <form id="checkOutCart">
+          @csrf
           <div id="cart" class="modal-body">
                 <div class="row mb-1">
                   <div class="col-sm-2 ">Name</div>
@@ -28,10 +30,13 @@
                   <div class="col-sm-3">Buttons</div>
                 </div>
           </div>
+
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button id="check-out"type="submit" class="btn btn-primary">Save changes</button>
           </div>
+        </form>
+
         </div>
       </div>
 </div>

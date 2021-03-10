@@ -10,12 +10,16 @@ use Illuminate\Http\Request;
 
 class transactionController extends Controller
 {
-    public function index()
-    {
+    public function index(){
         $form = array("Customer", "Name", "Contact");
         $Objects = array("shop_view"=>Inventory::with('suppliers','sales','deliveries')->Paginate(9, ['*'], 'shop_view'));
         return view('pages.transaction',[
             'Objects' => $Objects,
             ])->with(compact($Objects['shop_view']));
+    }
+    function getCart(Request $request){
+        $cart = response()->json();
+        dd($request);
+
     }
 }

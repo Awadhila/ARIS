@@ -28,4 +28,4 @@ Route::post('/inventory/edit/{id}', [InventoryController::class, 'update'])->nam
 Route::get('/inventory/delete/{id}', [InventoryController::class, 'delete'])->name('inv.delete');
 
 Route::get('/transactions', [transactionController::class, 'index'])->name('tran');
-Route::post('/transactions', [transactionController::class, 'store']);
+Route::post('/transactions/checkout', [transactionController::class, 'getCart'])->name('checkout');

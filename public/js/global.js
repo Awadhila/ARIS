@@ -67,7 +67,6 @@ shopingCart.displayPaymentCart = function () {
         if (($('#count'+item.id).length > 0)) {
             $( '#count'+item.id).replaceWith( "<div id='count"+item.id+"' class='col-sm'>"+ cartArray[i].count +"</div>");
             $( '#total'+item.id).replaceWith( "<div id='total"+item.id+"'class='col-sm'>"+ total +"</div>" );
-
         }else {
             output += '<div class="row mb-2">';
             output += "<div class='col-sm-2 '>"+ item.name +"</div>";
@@ -76,11 +75,8 @@ shopingCart.displayPaymentCart = function () {
             output += "<div id='total"+item.id+"'class='col-sm-2'>"+ total +"</div>";
             output += "<div class='col-sm-3'><button type='button' class='btn btn-danger'>Remove</button></div>";
             output += '</div>';
-
             $("#cart").append(output);
-
         }
-
     }
 }
 shopingCart.clearCart = function clearCart (){
@@ -94,7 +90,9 @@ shopingCart.saveCart = function  (){
 shopingCart.loadCart = function  (){
     this.cart = JSON.parse(localStorage.getItem("shopingCart"))
 }
+shopingCart.checkout = function checkout (e){
 
+}
 function getItem(id) {
     let myitem;
     items.data.forEach(item => {
@@ -117,13 +115,33 @@ $("#add").click(function(){
 $(".atc").click(function(){
     id = $(this).val();
     var item = getItem(id);
-    $("#invImg").attr("src", url+item.image)
+    $("#invImg").attr("src", url+item.image);
     $('#invTitleModel').text(item.name);
     $('#invPrice').text("Price: " + item.price);
 
 });
 
+$("#checkOutCart").submit(function(e){
+    e.preventDefault();
+    alert('clicked');
+    let data = "this.cart";
+    console.log(data);
+    $.ajax({
+        url: "{{route('checkout')}}",
+        type: "POST",
+        data: {data,
+        },
+        success:function() {
+            $('#cartModal').model('hide');
+            shopingCart.clearCart();
+        }
+    });
+});
 
+$(".check-out").click(function(){
+    alert();
+    shopingCart.checkout();
+});
 $("#new").click(function(){
     var val = $("#new").val();
     $("#ModalLongTitle").html(val);
