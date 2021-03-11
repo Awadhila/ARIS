@@ -16,12 +16,17 @@
                     Item has no discription
                 @endif
             </p>
-            <p class="card-text"><small class="text-muted">Last updated {{$items->updated_at}}</small></p>
             <div class="row">
                 <div class="col"><p>Price: {{$items->price}}</p></div>
+                @if (((int)$items->stock) > 0 || $Objects["Type"] == "delivery")
                 <button  value="{{$items->id}}" type="button" class="btn btn-primary atc" data-toggle="modal" data-target="#AddToCart">
                     Add to Cart
                 </button>
+                @else
+                    <p>Out of Stock</p>
+                @endif
+                <p class="card-text"><small class="text-muted">Last updated {{$items->updated_at}}</small></p>
+
                   
             </div>
 

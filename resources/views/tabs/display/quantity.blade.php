@@ -9,7 +9,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <img id="invImg" class="" width="100%">            
+          <img id="invImg" class="rounded mx-auto d-block"  style="width: 20rem;">            
           <div class="row">
               <div class="col"><p id="invPrice"></p></div>
           </div>

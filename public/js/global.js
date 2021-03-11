@@ -1,18 +1,8 @@
-
-$("#sale").click(function(){
-    $("#tranasactions_type_btn").hide();
-    $("#invH3").show();
-    $("#grid").show();
-});
-$("#receive").click(function(){
-    $("#tranasactions_type_btn").hide();
-    $("#invH3").show();
-    $("#grid").show();
-});
 var shopingCart = {};
 shopingCart.cart = [];
 var id;
 var quantitiy=0;
+
 
 shopingCart.Item =	function(id,count){
     this.id = id
@@ -120,20 +110,41 @@ $(".atc").click(function(){
     $('#invPrice').text("Price: " + item.price);
 
 });
-
+$("#select").click(function(){
+    alert($("#type").val());
+    if ($("#type").val() == 'Sales'){
+        window.location = "/transactions/sales"
+    }else{
+        var txt;
+        var id = prompt("Please enter supplier id", "15");
+        if (id == null || id == "") {
+        } else {
+            window.location = "/transactions/delivery/"+id
+        }
+    }
+});
+$("#back").click(function(){
+    window.location = "/transactions"
+});
 $("#checkOutCart").submit(function(e){
     e.preventDefault();
-    alert('clicked');
-    let data = "this.cart";
-    console.log(data);
+    let cart = shopingCart.cart;
+    let _token=$("input[name=_token]").val();
+    console.log(cart);
     $.ajax({
-        url: "{{route('checkout')}}",
+        url: "/checkout",
         type: "POST",
-        data: {data,
+        data: {
+                cart:cart,
+               _token:_token,
         },
-        success:function() {
-            $('#cartModal').model('hide');
+        success:function(response) {
+            $('#cartModal').modal('hide');
             shopingCart.clearCart();
+            if (response){
+                console.log(response);
+
+            }
         }
     });
 });

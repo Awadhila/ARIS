@@ -1,24 +1,47 @@
 @extends('layouts.app')
 
 @section('content')
-@include('tabs.display.cart')
 
+<div class="sticky">
+</div>
 <div class="container">
+
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Transactions') }}</div>
- 
+                <div class="card-header">{{ __('Transactions '.$Objects["Type"]) }}
+                    @if ($Objects["Type"] != 'Type')
+                    <button id="back" type="button" class="btn btn-outline-secondary  float-right ml-1" >Back</button>
+                    <button type="button" class="btn btn-outline-secondary  float-right ml-1" data-toggle="modal" data-target=".bd-example-modal-lg" >Cart</button>
+                    @endif
+
+                </div>
+
                     <div class="card-body">                       
-                        <div id="tranasactions_type_btn" class="container-sm">
-                            <button type="button" id="sale"class="btn btn-primary btn-lg btn-block">Sale Inventories</button>
-                            <button type="button" id="receive" class="btn btn-secondary btn-lg btn-block">Receive Inventory</button>
-                        </div>
                         <h3 id="invH3" class= "mt-5 text-center">Heading</h3>
-                        <div id="grid">
+                        @if (is_null($Objects["shop_view"]))
+                            <p>Select Trasation Type</p>
+                            <div class="form-group row">
+                                <label for="type" class="col-sm col-form-label">Type</label>
+                                <div class="col-sm">
+                                    <select  class="form-control"  id="type" >
+                                        <option>Sales</option>
+                                        <option>Delivery</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm">
+                                    <button id="select" type="button" class="btn btn-outline-primary  float-right">Select</button>
+                                </div>
+                            </div>
+                        @else
+                        <div id="grid">              
                             @include('layouts.grid')
+                            @include('tabs.display.cart')
+
                             @include('tabs.display.quantity')
                         </div>
+                        @endif
+
                     </div>
                 </div>
             </div>
@@ -30,10 +53,11 @@
 // ***** Shoping Cart Functions Start **********
     const items = @json($Objects["shop_view"]);
     var url = "{{asset('storage/Images/')}}/";
+    var urlCheckOut = "{{ route('tran') }}";
 
     $(document).ready(function(){
         $("#invH3").hide();
-        $("#grid").hide();
+        //$("#grid").hide();
         shopingCart.clearCart();   
     });
 
