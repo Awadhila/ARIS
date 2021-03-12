@@ -12,6 +12,8 @@ class payment extends Model
     use HasFactory;
     protected $fillable = [
         'Type',
+        'Total',
+        'Status',
     ];
     public function deliveries()
     {

@@ -17,8 +17,7 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->enum('Type', array('delivery', 'sales'));
             $table->double('Total', 15, 8)->default(0);
-            $table->double('stock', 15, 8)->default(0);
-            $table->boolean('Status')->default(false);         
+            $table->boolean('Status')->nullable();         
             $table->timestamps();
         });
     }

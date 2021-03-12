@@ -19,6 +19,7 @@ class CreateSalesTable extends Migration
             $table->foreignId('customer_id')->constrained()->onDelete('cascade');
             $table->foreignId('inventory_id')->constrained()->onDelete('cascade');
             $table->double('Quantity', 15, 8)->default(0);
+            $table->double('price', 15, 8)->default(0);
             $table->timestamps();
         });
     }

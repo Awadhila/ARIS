@@ -23,7 +23,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button id="check-out"type="submit" class="btn btn-primary">Save changes</button>
+                <button id="checkoutBtn"type="submit" class="btn btn-primary">Save changes</button>
               </div>
             </div>
           </div>

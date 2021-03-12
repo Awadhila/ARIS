@@ -1,6 +1,6 @@
 var shopingCart = {};
 shopingCart.cart = [];
-var id;
+var itemId;
 var quantitiy=0;
 
 
@@ -58,7 +58,7 @@ shopingCart.displayPaymentCart = function () {
             $( '#count'+item.id).replaceWith( "<div id='count"+item.id+"' class='col-sm'>"+ cartArray[i].count +"</div>");
             $( '#total'+item.id).replaceWith( "<div id='total"+item.id+"'class='col-sm'>"+ total +"</div>" );
         }else {
-            output += '<div class="row mb-2">';
+            output += '<div class="row mb-2 cartItems">';
             output += "<div class='col-sm-2 '>"+ item.name +"</div>";
             output += "<div id='count"+item.id+"' class='col-sm-2'>"+ cartArray[i].count +"</div>";
             output += "<div class='col-sm-3'>"+ item.price +"</div>";
@@ -92,19 +92,22 @@ function getItem(id) {
     return myitem;
 }
 $("#add").click(function(){
-    var item = getItem(id);
+    var item = getItem(itemId);
     if (confirm(item.name + " is being added to cart")) {
         quantity = parseInt($('#quantity').val());
-        shopingCart.addItemToCart(id,quantity);
+        shopingCart.addItemToCart(itemId,quantity);
         $('#quantity').val(1);
         quantity=1;
         shopingCart.displayPaymentCart();
+        $('#AddToCart').modal('hide');
+
+        
     }
 });
 
 $(".atc").click(function(){
-    id = $(this).val();
-    var item = getItem(id);
+    itemId = $(this).val();
+    var item = getItem(itemId);
     $("#invImg").attr("src", url+item.image);
     $('#invTitleModel').text(item.name);
     $('#invPrice').text("Price: " + item.price);
@@ -113,9 +116,12 @@ $(".atc").click(function(){
 $("#select").click(function(){
     alert($("#type").val());
     if ($("#type").val() == 'Sales'){
-        window.location = "/transactions/sales"
+        var id = prompt("Please enter supplier id", "15");
+        if (id == null || id == "") {
+        } else {
+            window.location = "/transactions/sales"+id
+        }
     }else{
-        var txt;
         var id = prompt("Please enter supplier id", "15");
         if (id == null || id == "") {
         } else {
@@ -128,6 +134,7 @@ $("#back").click(function(){
 });
 $("#checkOutCart").submit(function(e){
     e.preventDefault();
+    
     let cart = shopingCart.cart;
     let _token=$("input[name=_token]").val();
     console.log(cart);
@@ -135,23 +142,28 @@ $("#checkOutCart").submit(function(e){
         url: "/checkout",
         type: "POST",
         data: {
-                cart:cart,
-               _token:_token,
+            Id:clientId,
+            Type:type,
+            cart:cart,
+            _token:_token,
         },
         success:function(response) {
             $('#cartModal').modal('hide');
-            shopingCart.clearCart();
+            $( "div" ).remove( ".cartItems" );
+
             if (response){
                 console.log(response);
-
             }
         }
     });
 });
 
-$(".check-out").click(function(){
+
+$("#checkoutBtn").click(function(){   
     alert();
     shopingCart.checkout();
+    //window.location = "/transactions"
+
 });
 $("#new").click(function(){
     var val = $("#new").val();

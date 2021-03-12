@@ -21,4 +21,8 @@ class supplier extends Model
     {
         return $this->hasMany(Inventory::class);
     }
+    public function deliveries()
+    {
+        return $this->hasMany(delivery::class);
+    }
 }

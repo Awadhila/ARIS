@@ -52,9 +52,11 @@
 <script type="text/javascript">
 // ***** Shoping Cart Functions Start **********
     const items = @json($Objects["shop_view"]);
+    const clientId = @json($Objects["id"]);
+    const type = @json($Objects["Type"]);
     var url = "{{asset('storage/Images/')}}/";
     var urlCheckOut = "{{ route('tran') }}";
-
+    var tranID;
     $(document).ready(function(){
         $("#invH3").hide();
         //$("#grid").hide();

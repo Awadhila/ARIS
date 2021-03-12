@@ -10,6 +10,7 @@ class delivery extends Model
     use HasFactory;
     protected $fillable = [
         'inventory_id',
+        'supplier_id',
         'payment_id',
         'Quantity',
         'Price'
