@@ -19,11 +19,15 @@ class InventoryController extends Controller
     }
     public function index()
     {
-        $form = array("Inventory", "Name", "Origin","Catagory","Price","availible","Damaged","Sold","stock","Discription",);
+        $title = "Inventory";
+        $form = array("name", "origin","catagory","stock","sold","damaged","priceBuy","priceSale","image","discription");
+        $non_editable =array("stock","sold","priceBuy","priceSale","origin","catagory");
         $Objects = array("Supp"=> supplier::get(),
                          "form_view"=>Inventory::with('suppliers','sales','deliveries')->Paginate(1, ['*'], 'form_view'), 
                          "list_view"=>Inventory::with('suppliers','sales','deliveries')->Paginate(10, ['*'], 'list_view'), 
-                         "form" =>$form
+                         "form" =>$form,
+                         "non_editable" =>$non_editable,
+                         "title"=>$title
                         );
         return view('pages.Inventory',[
             'Objects' => $Objects,
@@ -43,9 +47,10 @@ class InventoryController extends Controller
         Inventory::create([
             'name' => $request->Name,
             'supplier_id' => $Supp->id,
-            'trade_origin'=> $request->Origin,
-            'Catagory'=> $request->Catagory,
-            'price' => $request->Price,
+            'origin'=> $request->Origin,
+            'catagory'=> $request->Catagory,
+            'priceBuy' => $request->Price,
+            'priceSale' => floatval(($request->Price) + 50),
         ]);
 
         return back();
@@ -54,7 +59,7 @@ class InventoryController extends Controller
     public function update(Request $request, $id){
         $this->validate($request, [
             'Name' => 'max:255|required',
-            'Trade_origin' => 'required',Rule::in(['Local', 'Import']),
+            'Origin' => 'required',Rule::in(['Local', 'Import']),
             'Catagory' =>'required',Rule::in(['fruit', 'vegetables']),
             'Price' =>'required|numeric',Rule::in(['fruit', 'vegetables']),
         ]);
@@ -72,10 +77,11 @@ class InventoryController extends Controller
         $inv->name = $request->Name;
         $inv->trade_origin =$request->Origin;
         $inv->Catagory =$request->Catagory;
-        $inv->price =$request->Price;
+        $inv->priceBuy =$request->Price;
+        $inv->priceSale = floatval(($request->Price) + 50);
+
         $inv->discription = $request->Discription;
         $inv->save();        
-        $this->index();
         return redirect()->route('inv');
     }
     public function delete( $id){
@@ -85,7 +91,6 @@ class InventoryController extends Controller
             Storage::delete("\public\Images\'".$inv->image);
         }
         $inv->delete();
-        $this->index();
         return redirect()->route('inv');
     }
 }

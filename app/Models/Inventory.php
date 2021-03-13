@@ -16,7 +16,8 @@ class Inventory extends Model
         'supplier_id',
         'trade_origin',
         'Catagory',
-        'price',
+        'price_buy',
+        'price_sale',
         'discription',
         'image'
     ];

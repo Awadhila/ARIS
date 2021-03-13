@@ -35,14 +35,17 @@ class InventoryFactory extends Factory
             "Cucumber" => array("Cucumber", "vegetables","cucumbers.png")
             );
         $item = $this->faker->unique()->randomElement($items);
+        $price = $this->faker->numberBetween($min = '50', $max = '400');
         return [
             'name' =>strval($item[0])  ,
             'supplier_id' => supplier::all()->random()->id,
-            'trade_origin' => $this->faker->randomElement(['local','import']),
+            'origin' => $this->faker->randomElement(['local','import']),
             'Catagory' => strval( $item[1]),
-            'price' => $this->faker->numberBetween($min = '50', $max = '400'),
-            'discription' => $this->faker->text,
+            'priceBuy' => $price,
+            'priceSale' => floatval($price+50),   
             'image' => strval( $item[2]),
+            'discription' => $this->faker->text,
+
         ];
     }
 }

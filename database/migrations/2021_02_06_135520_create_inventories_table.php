@@ -19,11 +19,12 @@ class CreateInventoriesTable extends Migration
             $table->string('name');
             $table->enum('origin', array('local', 'import'));
             $table->enum('catagory', array('fruit', 'vegetables'));
-            $table->text('discription')->nullable();
             $table->double('stock', 15, 8)->default(0);
             $table->double('sold', 15, 8)->default(0);
-            $table->double('price_buy', 15, 8)->default(0);
-            $table->double('price_sale', 15, 8)->default(0);
+            $table->double('priceBuy', 15, 8);
+            $table->double('priceSale', 15, 8);
+            $table->string('image')->nullable();
+            $table->text('discription')->nullable();
             $table->timestamps();
         });
     }
