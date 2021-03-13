@@ -65,6 +65,8 @@ class transactionController extends Controller
             $inv = DB::table('inventories')->where('id',$Objects[$x][0])->first();
             $total = floatval($inv->price*$Objects[$x][1]);
             if ($request->Type == "delivery"){
+                $inv->stock +=floatval($Objects[$x][1]);
+
                 delivery::create([
                     'inventory_id' => $inv->id,
                     'supplier_id' => $request->Id,
@@ -73,15 +75,17 @@ class transactionController extends Controller
                     'Price' =>  $total
                 ]);
             }else {
+                $inv->stock -=floatval($Objects[$x][1]);
+
                 sales::create([
                     'inventory_id' => $Objects[$x][0],
-                    'customer_id' => $request->id,
+                    'customer_id' => $request->Id,
                     'payment_id' => $payment->id,
                     'Quantity' => $Objects[$x][1],
                     'Price' =>  $total
                 ]);
             }
-
+            $inv->save(); 
         }
 
         return response()->json($request->Id);
