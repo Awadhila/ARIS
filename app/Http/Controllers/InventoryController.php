@@ -34,7 +34,7 @@ class InventoryController extends Controller
 
         $this->validate($request, [
             'Name' => 'max:255|required',
-            'Origin' => 'required',Rule::in(['Local', 'Import']),
+            'Trade_origin' => 'required',Rule::in(['Local', 'Import']),
             'Catagory' =>'required',Rule::in(['fruit', 'vegetables']),
         ]);
 
@@ -54,7 +54,7 @@ class InventoryController extends Controller
     public function update(Request $request, $id){
         $this->validate($request, [
             'Name' => 'max:255|required',
-            'Origin' => 'required',Rule::in(['Local', 'Import']),
+            'Trade_origin' => 'required',Rule::in(['Local', 'Import']),
             'Catagory' =>'required',Rule::in(['fruit', 'vegetables']),
             'Price' =>'required|numeric',Rule::in(['fruit', 'vegetables']),
         ]);
@@ -68,7 +68,6 @@ class InventoryController extends Controller
             $imageName = $request->Name.'-'.time().'.'.$image->extension();
             $request->file('Image')->storeAs('/public/Images',$imageName);
             $inv->image = $imageName;
-
         }
         $inv->name = $request->Name;
         $inv->trade_origin =$request->Origin;

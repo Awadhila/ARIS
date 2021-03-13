@@ -17,8 +17,8 @@ class CreateInventoriesTable extends Migration
             $table->id();
             $table->foreignId('supplier_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->enum('trade_origin', array('local', 'import'));
-            $table->enum('Catagory', array('fruit', 'vegetables'));
+            $table->enum('origin', array('local', 'import'));
+            $table->enum('catagory', array('fruit', 'vegetables'));
             $table->text('discription')->nullable();
             $table->double('stock', 15, 8)->default(0);
             $table->double('sold', 15, 8)->default(0);

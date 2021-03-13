@@ -3,32 +3,40 @@
     <div class="row">
         @if ($Objects["form"][0] == "Customer" || $Objects["form"][0] ==  "Supplier")
             <div class="col">
-                <div class="form-group row">
-                    <label for="Name" class="col-sm-4 col-form-label">{{$Objects['form'][1]}}</label>
-                    <div class="col-sm-7">
-                        <input type="text" readonly class="form-control-plaintext @error('Name') is-invalid @enderror" name="Name" id="Name" value="{{$items->name}}">
-                        @error('Name')
-                            <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                                </span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="contact" class="col-sm-4 col-form-label">{{$Objects['form'][2]}}</label>
-                    <div class="col-sm-7">
-                        <input type="text" readonly class="form-control-plaintext @error('Contact') is-invalid @enderror" name="contact" id="contact" value="{{$items->contact}}">
-                        @error('Contact')
-                            <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                                </span>
-                        @enderror
-                    </div>
-                </div>
+
+            @foreach ($Objects['form_view'] as $items)
+                @foreach ($items->toArray() as $key=>$value)
+                    @if ( ucfirst($key) == "Name" || ucfirst($key) == "Contact")
+                        <div class="form-group row">
+                            <label for="{{ucfirst($key)}}" class="col-sm-4 col-form-label">{{ucfirst($key)}}</label>
+                            <div class="col-sm-7">
+                                <input type="text" readonly class="form-control-plaintext" name={{ucfirst($key)}} id={{ucfirst($key)}} value="{{$value}}">
+                            </div>
+                        </div>  
+                    @endif
+                @endforeach
+            @endforeach
+
             </div>    
         @else
             <div class="container">
                 <div class="row">
+                    <div class="col">
+
+                        @foreach ($Objects['form_view'] as $items)
+                            @foreach ($items->toArray() as $key=>$value)
+                                @if ( $key != "id" || $key != "supplier_id"  || $key != "discription" || $key != "image" ||  $key != "created_at" ||  $key != "updated_at" )
+                                    <div class="form-group row">
+                                        <label for="{{ucfirst($key)}}" class="col-sm-4 col-form-label">{{ucfirst($key)}}</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" readonly class="form-control-plaintext" name={{ucfirst($key)}} id={{ucfirst($key)}} value="{{$value}}">
+                                        </div>
+                                    </div>  
+                                @endif
+                            @endforeach
+                        @endforeach
+            
+                    </div> 
                     <div class="col">
                         @if (array_key_exists("Supp",$Objects) && $Objects["form"][0] == "Inventory")
                             <div class="form-group row" id = "supp">
@@ -48,24 +56,7 @@
                                 </select>
                                 </div>
                             </div>
-                        @endif              
-                        <div class="form-group row">
-                            <label for="Name" class="col-sm-4 col-form-label">{{$Objects['form'][1]}}</label>
-                            <div class="col-sm-7">
-                                <input type="text" readonly class="form-control-plaintext @error('Name') is-invalid @enderror" name="Name" id="Name" value="{{$items->name}}">
-                                @error('Name')
-                                    <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                        </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-group row" id="origin" >
-                            <label for="Origin" class="col-sm-4 col-form-label">{{$Objects["form"][2]}} : </label>
-                            <div class="col-sm-7">
-                                <input type="text" readonly class="form-control-plaintext" id="sOrigin" value={{$items->trade_origin}} >
-                            </div>
-                        </div>
+                        @endif   
                         <div class="form-group row" id = "origin_update">
                             <label for="Origin" class="col-sm-4 col-form-label">Origin</label>
                             <div class="col-sm-7">
@@ -80,12 +71,6 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row " id = "catagory">
-                            <label for="staticCatagory" class="col-sm-4 col-form-label">{{$Objects["form"][3]}} : </label>
-                            <div class="col-sm-7">
-                                <input type="text" readonly class="form-control-plaintext" id="staticCatagory" value={{$items->Catagory}} >
-                            </div>
-                        </div>   
                         <div class="form-group row" id = "catagory_update">
                             <legend for = "Catagory" class="col-form-label col-sm-4">Catagory</legend>
                             @if ($items->Catagory == "fruit")
@@ -111,7 +96,32 @@
                                     </div>
                                 </div>
                             @endif
+                        </div>           
+                        <div class="form-group row">
+                            <label for="Name" class="col-sm-4 col-form-label">{{$Objects['form'][1]}}</label>
+                            <div class="col-sm-7">
+                                <input type="text" readonly class="form-control-plaintext @error('Name') is-invalid @enderror" name="Name" id="Name" value="{{$items->name}}">
+                                @error('Name')
+                                    <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                        </span>
+                                @enderror
+                            </div>
                         </div>
+                        <div class="form-group row" id="origin" >
+                            <label for="Origin" class="col-sm-4 col-form-label">{{$Objects["form"][2]}} : </label>
+                            <div class="col-sm-7">
+                                <input type="text" readonly class="form-control-plaintext" id="sOrigin" value={{$items->trade_origin}} >
+                            </div>
+                        </div>
+
+                        <div class="form-group row " id = "catagory">
+                            <label for="staticCatagory" class="col-sm-4 col-form-label">{{$Objects["form"][3]}} : </label>
+                            <div class="col-sm-7">
+                                <input type="text" readonly class="form-control-plaintext" id="staticCatagory" value={{$items->Catagory}} >
+                            </div>
+                        </div>   
+
             
                         <div class="form-group row">
                         <label for="Price" class="col-sm-4 col-form-label">Price</label>

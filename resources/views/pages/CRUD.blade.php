@@ -1,19 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-
 <div class="container">
-    
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Suppliers') }}</div>
+                <div class="card-header">{{ __($Objects['form'][0]) }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
                     @endif
                     @include('layouts.tabs')
                     <div class="tab-content" id="ex1-content">
@@ -22,11 +20,14 @@
                                 @if ($Objects['form_view']->count())
                                     @foreach ($Objects['form_view'] as $items)
                                     @include('tabs.display.controls',['Objects' => $Objects])
-                                        <form action={{ route('supp.update',$items->id) }} method="post" class="mb-4">
+
+                                        <form action={{ route('cus.update',$items->id) }} method="post" class="mb-4">
                                             @csrf
                                             @include('tabs.form',['Objects' => $Objects])
                                             <button id="update" type="submit" class="btn btn-primary">Save changes</button>
+
                                         </form>
+
                                     @endforeach
                                 @else
                                     @include('tabs.display.controls',['Objects' => $Objects])
@@ -46,7 +47,12 @@
     </div>
 </div>
 <script type="text/javascript">
-    var url = '{{ route("supp.delete", ":id") }}';
+    const type = @json($Objects["form"][0]);
+    if (type == "Customer") {
+        var url = '{{ route("cus.delete", ":id") }}';
+    } else {
+        var url = '{{ route("supp.delete", ":id") }}';
+    }
 
     $(document).ready(function(){
         $("#update").hide();
