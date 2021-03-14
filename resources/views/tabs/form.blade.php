@@ -1,7 +1,7 @@
 <p class="col-sm-3 col-form-label">{{$Objects["title"]}}</p>
 <div class="container">
     <div class="row">
-        @if ($Objects["form"][0] == "Customer" || $Objects["form"][0] ==  "Supplier")
+        @if ($Objects["title"] == "Customer" || $Objects["title"] ==  "Supplier")
             <div class="col">
             @foreach ($Objects['form_view'] as $items)
                 @foreach ($items->toArray() as $key=>$value)
@@ -62,7 +62,7 @@
                             </div>                                       
                         @endif
                         @if ($key != "image" && $key != "discription" )
-                            <label for="{{ucfirst($key)}}" class="col-sm-4 col-form-label">{{preg_replace('/(?<!\ )[A-Z]/', '$0', ucfirst($key))}}</label>
+                            <label for="{{ucfirst($key)}}" class="col-sm-4 col-form-label">{{  preg_replace('/(?<!\ )[A-Z]/', '$0', strval(ucfirst($key))) }}</label>
                             <div class="col-sm-7">
                                 <input type="text" readonly class="form-control-plaintext" name="{{ucfirst($key)}}" id="{{ucfirst($key)}}" value="{{$value}}">
                             </div>

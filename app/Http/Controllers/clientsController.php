@@ -13,19 +13,24 @@ class clientsController extends Controller
         $this ->middleware('auth');
     }
     public function supp_index(){
-        $form = array("Supplier", "Name", "Contact");
+        $title = "Supplier";
+        $form = array("Name", "Contact");
         $Objects = array("form_view"=> supplier::Paginate(1, ['*'], 'form_view'),
                          "list_view"=> supplier::Paginate(10, ['*'], 'list_view'),
-                         "form" =>$form);
+                         "form" => $form,
+                         "title" => $title
+                        );
         return view('pages.CRUD',[
             'Objects' => $Objects,
         ])->with(compact($Objects['form_view'],$Objects['list_view']));
     }
     public function cus_index(){
+        $title = "Customer";
         $form = array("Customer", "Name", "Contact");
         $Objects = array("form_view"=> customer::Paginate(1, ['*'], 'form_view'),
                         "list_view"=> customer::Paginate(10, ['*'], 'list_view'),
-                         "form" =>$form
+                        "form" => $form,
+                        "title" => $title
                         );
         return view('pages.CRUD',[
             'Objects' => $Objects,

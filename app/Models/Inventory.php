@@ -14,12 +14,10 @@ class Inventory extends Model
     protected $fillable = [
         'name',
         'supplier_id',
-        'trade_origin',
-        'Catagory',
-        'price_buy',
-        'price_sale',
-        'discription',
-        'image'
+        'origin',
+        'catagory',
+        'priceBuy',
+        'priceSale',
     ];
     public function suppliers()
     {

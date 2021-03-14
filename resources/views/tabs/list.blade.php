@@ -2,29 +2,31 @@
     {{$Objects['list_view']->links(("pagination::bootstrap-4")) }}
 
         <div class=" border-bottom form-group row  ml-1">
-            <label class="col-sm-2 col-form-label">##</label>
+            <label class="col-sm col-form-label">##</label>
             @foreach ($Objects["form"] as $key=>$items)
-                @if ($key >= 1 && $key <= 4)
-                    <label class="col-sm-2 col-form-label">{{$items}}</label>
+                @if ($items != "image" && $items != "discription" )
+                    <label class="col-sm col-form-label">{{$items}}</label>
                 @endif
             @endforeach
         
         </div>
-        @foreach ($Objects['list_view'] as $key=>$items)
-            @if ($Objects["form"][0] == "Inventory")
+        @foreach ($Objects['list_view'] as $x=>$items)
+
+            @if ($Objects["title"] == "Inventory")
                 <div class="border-bottom  ">
                     <div class="form-group row ml-1">
-                        <p class="col-sm-2 col-form-label">{{ ++$key }} )</p>
-                            <p class="col-sm-2 col-form-label">{{$items->name}}</p>
-                            <p class="col-sm-2 col-form-label">{{$items->trade_origin}}</p>
-                            <p class="col-sm-2 col-form-label">{{$items->Catagory}}</p>
-                            <p class="col-sm-2 col-form-label">{{$items->price}}</p>
+                        <p class="col-sm col-form-label">{{ ++$x }} )</p>
+                        @foreach ($items->toArray() as $key=>$value)
+                            @if (in_array($key, $Objects['form']) && $key != "image" && $key != "discription" )
+                                <p class="col-sm col-form-label">{{strval($value)}}</p>
+                            @endif
+                        @endforeach
                     </div>
-                </div>  
+                </div> 
             @else
                 <div class="border-bottom  ">
                     <div class="form-group row ml-1">
-                        <p class="col-sm-2 col-form-label">{{ ++$key }} )</p>
+                        <p class="col-sm-2 col-form-label">{{ ++$x }} )</p>
                             <p class="col-sm-2 col-form-label">{{$items->name}}</p>
                             <p class="col-sm-2 col-form-label">{{$items->contact}}</p>
                     </div>

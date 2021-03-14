@@ -17,7 +17,7 @@
                 @endif
             </p>
             <div class="row">
-                <div class="col"><p>Price: {{$items->price}}</p></div>
+                <div class="col"><p>Price: @if ($Objects['Type'] == "delivery") {{$items->priceBuy}} @else {{$items->priceSale}} @endif</p></div>
                 @if (((int)$items->stock) > 0 || $Objects["Type"] == "delivery")
                 <button  value="{{$items->id}}" type="button" class="btn btn-primary atc" data-toggle="modal" data-target="#AddToCart">
                     Add to Cart

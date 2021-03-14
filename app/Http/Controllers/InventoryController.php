@@ -20,8 +20,8 @@ class InventoryController extends Controller
     public function index()
     {
         $title = "Inventory";
-        $form = array("name", "origin","catagory","stock","sold","damaged","priceBuy","priceSale","image","discription");
-        $non_editable =array("stock","sold","priceBuy","priceSale","origin","catagory");
+        $form = array("name", "origin","catagory","stock","sold","priceBuy","priceSale","image","discription");
+        $non_editable =array("stock","sold","priceSale","origin","catagory");
         $Objects = array("Supp"=> supplier::get(),
                          "form_view"=>Inventory::with('suppliers','sales','deliveries')->Paginate(1, ['*'], 'form_view'), 
                          "list_view"=>Inventory::with('suppliers','sales','deliveries')->Paginate(10, ['*'], 'list_view'), 
@@ -35,13 +35,13 @@ class InventoryController extends Controller
     }
     public function store(Request $request)
     {
-
         $this->validate($request, [
             'Name' => 'max:255|required',
-            'Trade_origin' => 'required',Rule::in(['Local', 'Import']),
-            'Catagory' =>'required',Rule::in(['fruit', 'vegetables']),
-        ]);
+            'Origin' => 'required',Rule::in(['Local', 'Import']),
+            'Catagory' =>'required',Rule::in(['Fruit', 'Vegetables']),
+            'PriceBuy' =>'numeric|required'
 
+        ]);
         $Supp = DB::table('suppliers')->where('name',$request->Supplier)->first();
 
         Inventory::create([
@@ -49,8 +49,8 @@ class InventoryController extends Controller
             'supplier_id' => $Supp->id,
             'origin'=> $request->Origin,
             'catagory'=> $request->Catagory,
-            'priceBuy' => $request->Price,
-            'priceSale' => floatval(($request->Price) + 50),
+            'priceBuy' => $request->PriceBuy,
+            'priceSale' => floatval(($request->PriceBuy) + 50),
         ]);
 
         return back();
@@ -61,7 +61,7 @@ class InventoryController extends Controller
             'Name' => 'max:255|required',
             'Origin' => 'required',Rule::in(['Local', 'Import']),
             'Catagory' =>'required',Rule::in(['fruit', 'vegetables']),
-            'Price' =>'required|numeric',Rule::in(['fruit', 'vegetables']),
+            'PriceBuy' =>'required|numeric'
         ]);
         $inv = Inventory::find($id);
 
@@ -75,14 +75,14 @@ class InventoryController extends Controller
             $inv->image = $imageName;
         }
         $inv->name = $request->Name;
-        $inv->trade_origin =$request->Origin;
-        $inv->Catagory =$request->Catagory;
-        $inv->priceBuy =$request->Price;
-        $inv->priceSale = floatval(($request->Price) + 50);
+        $inv->origin =$request->Origin;
+        $inv->catagory =$request->Catagory;
+        $inv->priceBuy =$request->PriceBuy;
+        $inv->priceSale = floatval(($request->PriceBuy) + 50);
 
         $inv->discription = $request->Discription;
         $inv->save();        
-        return redirect()->route('inv');
+        return back();
     }
     public function delete( $id){
         $inv = Inventory::find($id);

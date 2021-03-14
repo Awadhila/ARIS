@@ -7,7 +7,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            @if ($Objects['form'][0] != "Inventory")
+            @if ($Objects['form'][0] == "Supplier"  || $Objects['form'][0] == "Customer")
                 @if ($Objects['form'][0] == "Customer")
                     <form action="{{ route('cus') }}" method="post" class="mb-4">
                 @else

@@ -1,7 +1,7 @@
-@if ($Objects["form"][0] == "Customer" || $Objects["form"][0] ==  "Supplier")
+@if ($Objects["title"] == "Customer" || $Objects["title"] ==  "Supplier")
     <div class="col">
         <div class="form-group row">
-            <label for="Name" class="col-sm-4 col-form-label">{{$Objects['form'][1]}}</label>
+            <label for="Name" class="col-sm-4 col-form-label">{{$Objects['form'][0]}}</label>
             <div class="col-sm-7">
                 <input type="text" class="form-control @error('Name') is-invalid @enderror" name="Name" id="Name" value="{{old('Name')}}" required>
                 @error('Name')
@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="contact" class="col-sm-4 col-form-label">{{$Objects['form'][2]}}</label>
+            <label for="contact" class="col-sm-4 col-form-label">{{$Objects['form'][1]}}</label>
             <div class="col-sm-7">
                 <input type="text" class="form-control @error('Contact') is-invalid @enderror" name="contact" id="contact" value="{{ old('Contact')}}" required>
                 @error('Contact')
@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="Name" class="col-sm-3 col-form-label">{{$Objects['form'][1]}}</label>
+            <label for="Name" class="col-sm-3 col-form-label">{{ucfirst($Objects['form'][0])}}</label>
             <div class="col-sm-8">
                 <input type="text"  class="form-control @error('Name') is-invalid @enderror" name="Name" id="Name" value="{{ old('Name') }}">
                 @error('Name')
@@ -45,7 +45,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="Origin" class="col-sm-3 col-form-label">Origin</label>
+            <label for="Origin" class="col-sm-3 col-form-label">{{ucfirst($Objects['form'][1])}}</label>
             <div class="col-sm-8">
                 <select  class="form-control" name="Origin"  id="Origin" >
                     <option>Local</option>
@@ -54,7 +54,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <legend for = "Catagory" class="col-form-label col-sm-3">Catagory</legend>
+            <legend for = "Catagory" class="col-form-label col-sm-3">{{ucfirst($Objects['form'][2])}}</legend>
             <div class="col-sm-8">
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="Catagory" id="Catagory" value="fruit">
@@ -67,9 +67,9 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="Price" class="col-sm-3 col-form-label">Price</label>
+            <label for="PriceBuy" class="col-sm-3 col-form-label">{{ucfirst($Objects['form'][6])}}</label>
             <div class="col-sm-8">
-                <input type="text"  class="form-control @error('Price') is-invalid @enderror" name="Price"  id="Price" value="{{ old('Price') }}"  >
+                <input type="text"  class="form-control @error('Price') is-invalid @enderror" name="PriceBuy"  id="PriceBuy" value="{{ old('PriceBuy') }}"  >
                 @error('Price')
                     <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span>
                 @enderror

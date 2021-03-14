@@ -50,10 +50,18 @@ shopingCart.displayPaymentCart = function () {
     var cartArray = shopingCart.cart;
     var output = "";
     var x = 0;
+    var price;
+
     for (var i in cartArray){
         x++;
         var item = getItem(cartArray[i].id);
-        let total = parseInt(item.price) * parseInt(cartArray[i].count );
+        if(type == "Sales"){
+            price = item.priceBuy;
+        }else {
+            price = item.priceSale;
+        }
+        let total = parseInt(price) * parseInt(cartArray[i].count );
+
         if (($('#count'+item.id).length > 0)) {
             $( '#count'+item.id).replaceWith( "<div id='count"+item.id+"' class='col-sm'>"+ cartArray[i].count +"</div>");
             $( '#total'+item.id).replaceWith( "<div id='total"+item.id+"'class='col-sm'>"+ total +"</div>" );
@@ -61,7 +69,7 @@ shopingCart.displayPaymentCart = function () {
             output += '<div class="row mb-2 cartItems">';
             output += "<div class='col-sm-2 '>"+ item.name +"</div>";
             output += "<div id='count"+item.id+"' class='col-sm-2'>"+ cartArray[i].count +"</div>";
-            output += "<div class='col-sm-3'>"+ item.price +"</div>";
+            output += "<div class='col-sm-3'>"+ price +"</div>";
             output += "<div id='total"+item.id+"'class='col-sm-2'>"+ total +"</div>";
             output += "<div class='col-sm-3'><button type='button' class='btn btn-danger'>Remove</button></div>";
             output += '</div>';
