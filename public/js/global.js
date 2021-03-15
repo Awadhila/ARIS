@@ -127,7 +127,7 @@ $("#select").click(function(){
         var id = prompt("Please enter supplier id", "15");
         if (id == null || id == "") {
         } else {
-            window.location = "/transactions/sales"+id
+            window.location = "/transactions/sales/"+id
         }
     }else{
         var id = prompt("Please enter supplier id", "15");

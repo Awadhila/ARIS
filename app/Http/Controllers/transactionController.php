@@ -10,8 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-class transactionController extends Controller
-{
+class transactionController extends Controller{
     public function index(){
         $Type = 'Type';
         $Objects = array("shop_view"=>null,
@@ -60,13 +59,11 @@ class transactionController extends Controller
             'Status' =>null,
         ]);
         $payment = DB::table('payments')->where('Status',null)->first();
-
         for ($x = 0; $x <  count($Objects); $x++) {
-            $inv = DB::table('inventories')->where('id',$Objects[$x][0])->first();
-            $total = floatval($inv->price*$Objects[$x][1]);
+            $inv = Inventory::find($Objects[$x][0]);   
             if ($request->Type == "delivery"){
                 $inv->stock +=floatval($Objects[$x][1]);
-
+                $total = floatval($inv->priceBuy*$Objects[$x][1]);
                 delivery::create([
                     'inventory_id' => $inv->id,
                     'supplier_id' => $request->Id,
@@ -74,9 +71,9 @@ class transactionController extends Controller
                     'Quantity' => floatval($Objects[$x][1]),
                     'Price' =>  $total
                 ]);
-            }else {
-                $inv->stock -=floatval($Objects[$x][1]);
-
+            }else { 
+                $inv->sold +=floatval($Objects[$x][1]);
+                $total = floatval($inv->priceSale*$Objects[$x][1]);
                 sales::create([
                     'inventory_id' => $Objects[$x][0],
                     'customer_id' => $request->Id,
@@ -87,10 +84,6 @@ class transactionController extends Controller
             }
             $inv->save(); 
         }
-
         return response()->json($request->Id);
-
-        
-
     }
 }
