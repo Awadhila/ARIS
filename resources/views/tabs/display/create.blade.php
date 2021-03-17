@@ -1,81 +1,66 @@
-@if ($Objects["title"] == "Customer" || $Objects["title"] ==  "Supplier")
-    <div class="col">
-        <div class="form-group row">
-            <label for="Name" class="col-sm-4 col-form-label">{{$Objects['form'][0]}}</label>
-            <div class="col-sm-7">
-                <input type="text" class="form-control @error('Name') is-invalid @enderror" name="Name" id="Name" value="{{old('Name')}}" required>
-                @error('Name')
-                    <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                        </span>
-                @enderror
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="contact" class="col-sm-4 col-form-label">{{$Objects['form'][1]}}</label>
-            <div class="col-sm-7">
-                <input type="text" class="form-control @error('Contact') is-invalid @enderror" name="contact" id="contact" value="{{ old('Contact')}}" required>
-                @error('Contact')
-                    <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                        </span>
-                @enderror
-            </div>
-        </div>
-    </div> 
-@else
-    @if ($Objects["Supp"]->count())
-        <div class="form-group row">
-            <label for="Supplier" class="col-sm-3 col-form-label">Supplier</label>
-            <div class="col-sm-8">
-                <select  class="form-control" name="Supplier"  id="Supplier" >
-                    @foreach ($Objects['Supp'] as $supp)
-                        <option>{{$supp->name}}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="Name" class="col-sm-3 col-form-label">{{ucfirst($Objects['form'][0])}}</label>
-            <div class="col-sm-8">
-                <input type="text"  class="form-control @error('Name') is-invalid @enderror" name="Name" id="Name" value="{{ old('Name') }}">
-                @error('Name')
-                    <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span>
-                @enderror
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="Origin" class="col-sm-3 col-form-label">{{ucfirst($Objects['form'][1])}}</label>
-            <div class="col-sm-8">
-                <select  class="form-control" name="Origin"  id="Origin" >
-                    <option>Local</option>
-                    <option>Import</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group row">
-            <legend for = "Catagory" class="col-form-label col-sm-3">{{ucfirst($Objects['form'][2])}}</legend>
-            <div class="col-sm-8">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="Catagory" id="Catagory" value="fruit">
-                    <label class="form-check-label" for="Catagory">Fruit</label>
+<div class="col">
+    @foreach ($Objects['form'] as $key)
+
+        @if ($Objects["title"] != "Inventory")
+                <div class="form-group row">
+                    <label for="{{ucfirst($key)}}" class="col-sm col-form-label">{{ucfirst($key)}}</label>
+                    <div class="col-sm">
+                        <input type="text" class="form-control @error('{{ucfirst($key)}}') is-invalid @enderror" name="{{ucfirst($key)}}" id="{{ucfirst($key)}}" required>
+                        @error('{{ucfirst($key)}}')
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                                </span>
+                        @enderror
+                    </div>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="Catagory" id="Catagory" value="vegetables">
-                    <label class="form-check-label" for="Catagory">Vegetables</label>
-                </div>
+        @else
+            <div class="form-group row">
+                @if (in_array($key, $Objects['form']) && $key != "image" && $key != "discription" )
+
+                    <label for="{{ucfirst($key)}}" class="col-sm col-form-label">{{ucfirst($key)}}</label>
+                    <div class="col-sm">
+                        @if ($key == "supplier" || $key == "origin" || $key == "catagory")
+                            @if ($key == "supplier")
+                                <div class="col-sm">
+                                    <select  class="form-control" name="Supplier"  id="Supplier" >
+                                        @foreach ($Objects['Supp'] as $supp)
+                                            <option>{{$supp->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif    
+                            @if ($key == "origin")
+                                <div class="col-sm">
+                                    <select  class="form-control" name="Origin"  id="Origin" >
+                                        <option>Local</option>
+                                        <option>Import</option>
+                                    </select>
+                                </div>
+                            @endif
+                            @if ($key == "catagory")
+                                <div class="col-sm">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="Catagory" id="Catagory" value="fruit">
+                                        <label class="form-check-label" for="Catagory">Fruit</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="Catagory" id="Catagory" value="vegetables">
+                                        <label class="form-check-label" for="Catagory">Vegetables</label>
+                                    </div>
+                                </div>
+                            @endif
+                        @else
+                            <input type="text" class="form-control @error('{{ucfirst($key)}}') is-invalid @enderror" name="{{ucfirst($key)}}" id="{{ucfirst($key)}}" required>
+                            @error('{{ucfirst($key)}}')
+                                <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        @endif
+                    </div>
+                @endif
+
             </div>
-        </div>
-        <div class="form-group row">
-            <label for="PriceBuy" class="col-sm-3 col-form-label">{{ucfirst($Objects['form'][6])}}</label>
-            <div class="col-sm-8">
-                <input type="text"  class="form-control @error('Price') is-invalid @enderror" name="PriceBuy"  id="PriceBuy" value="{{ old('PriceBuy') }}"  >
-                @error('Price')
-                    <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span>
-                @enderror
-            </div>
-        </div>        
-    @else
-        <p>There are no Suppliers</p>
-    @endif  
-@endif
+        @endif
+    @endforeach
+</div>

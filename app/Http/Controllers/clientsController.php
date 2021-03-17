@@ -26,7 +26,7 @@ class clientsController extends Controller
     }
     public function cus_index(){
         $title = "Customer";
-        $form = array("Customer", "Name", "Contact");
+        $form = array("Name", "Contact");
         $Objects = array("form_view"=> customer::Paginate(1, ['*'], 'form_view'),
                         "list_view"=> customer::Paginate(10, ['*'], 'list_view'),
                         "form" => $form,
@@ -43,7 +43,7 @@ class clientsController extends Controller
         ]);
         $request->user()->suppliers()->create([
             'name' => $request->Name,
-            'Contact' =>$request->contact
+            'contact' =>$request->Contact
         ]);
         return back();
     }
@@ -54,7 +54,7 @@ class clientsController extends Controller
         ]);
         $request->user()->customers()->create([
             'name' => $request->Name,
-            'Contact' =>$request->contact
+            'contact' =>$request->Contact
         ]);
         return back();
     }

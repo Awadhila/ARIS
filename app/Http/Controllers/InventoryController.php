@@ -20,8 +20,8 @@ class InventoryController extends Controller
     public function index()
     {
         $title = "Inventory";
-        $form = array("name", "origin","catagory","stock","sold","priceBuy","priceSale","image","discription");
-        $non_editable =array("stock","sold","priceSale","origin","catagory");
+        $form = array("name","supplier", "origin","catagory","priceBuy","image","discription");
+        $non_editable =array("stock","sold","priceSale");
         $Objects = array("Supp"=> supplier::get(),
                          "form_view"=>Inventory::with('suppliers','sales','deliveries')->Paginate(1, ['*'], 'form_view'), 
                          "list_view"=>Inventory::with('suppliers','sales','deliveries')->Paginate(10, ['*'], 'list_view'), 
@@ -46,7 +46,7 @@ class InventoryController extends Controller
 
         Inventory::create([
             'name' => $request->Name,
-            'supplier_id' => $Supp->id,
+            'supplier' => $Supp->id,
             'origin'=> $request->Origin,
             'catagory'=> $request->Catagory,
             'priceBuy' => $request->PriceBuy,

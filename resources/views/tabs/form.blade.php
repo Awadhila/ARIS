@@ -21,24 +21,25 @@
   
                 @foreach ($items->toArray() as $key=>$value)
                     @if (in_array($key, $Objects['form']))
+                    n  
                         @if ($key == "name"  || $key == "image" )
                             <div class="col">
                                 @if (array_key_exists("Supp",$Objects) && $key == "name" )
                                 <div style="display: none;" class="form-group row " id = "supp">
-                                <label for="Supplier" class="col-sm-4 col-form-label">Supplier</label>
+                                    <label for="Supplier" class="col-sm-4 col-form-label">Supplier</label>
                                     <div class="col-sm-7">
-                                    <select  class="form-control" name="Supplier"  id="Supplier" >
-                                        @foreach ($Objects['Supp'] as $supp) 
-                                        @if ($items->supplier_id == $supp->id)
-                                            <option>{{$supp->name}}</option>
-                                        @endif
-                                        @endforeach
-                                        @foreach ($Objects['Supp'] as $supp) 
-                                        @if ($items->supplier_id != $supp->id)
-                                            <option>{{$supp->name}}</option>
-                                        @endif
-                                        @endforeach
-                                    </select>
+                                        <select  class="form-control" name="Supplier"  id="Supplier" >
+                                            @foreach ($Objects['Supp'] as $supp) 
+                                                @if ($items->supplier_id == $supp->id)
+                                                    <option>{{$supp->name}}</option>
+                                                @endif
+                                            @endforeach
+                                            @foreach ($Objects['Supp'] as $supp) 
+                                                @if ($items->supplier_id != $supp->id)
+                                                    <option>{{$supp->name}}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 @endif 

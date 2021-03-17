@@ -35,5 +35,5 @@
 
         @endforeach
     @else
-        <p>There are no {{$Objects['form'][0]}}</p>
+        <p>There are no {{$Objects['title']}}</p>
     @endif

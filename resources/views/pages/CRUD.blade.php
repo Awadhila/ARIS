@@ -31,7 +31,7 @@
                                     @endforeach
                                 @else
                                     @include('tabs.display.controls',['Objects' => $Objects])
-                                    <p>There are no {{$Objects['form'][0]}}</p>
+                                    <p>There are no {{$Objects['title']}}</p>
                                 @endif
                                 @include('tabs.display.models')
                             </div>

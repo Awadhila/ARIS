@@ -17,19 +17,22 @@
                     <div class="tab-content" id="ex1-content">
                         <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel"  aria-labelledby="ex1-tab-1">
                             <div class="border-bottom  ">
-                                @if ($Objects["form_view"]->count())
-                                    @foreach ($Objects["form_view"] as $items)
-                                    @include('tabs.display.controls',['Objects' => $Objects])
-
-                                        <form action={{ route('inv.update',$items->id) }}  method="post" enctype="multipart/form-data"class="mb-4">
-                                            @csrf
-                                            @include('tabs.form',['Objects' => $Objects])
-                                            <button id="update" type="submit" class="btn btn-primary">Save changes</button>
-                                        </form>
-                                    @endforeach
+                                @if ($Objects["Supp"]->count())
+                                    @if ($Objects["form_view"]->count())
+                                        @foreach ($Objects["form_view"] as $items)
+                                        @include('tabs.display.controls',['Objects' => $Objects])
+                                            <form action={{ route('inv.update',$items->id) }}  method="post" enctype="multipart/form-data"class="mb-4">
+                                                @csrf
+                                                @include('tabs.form',['Objects' => $Objects])
+                                                <button id="update" type="submit" class="btn btn-primary">Save changes</button>
+                                            </form>
+                                        @endforeach
+                                    @else
+                                        @include('tabs.display.controls',['Objects' => $Objects])
+                                        <p>There are no {{$Objects['title']}}</p>
+                                    @endif 
                                 @else
-                                    @include('tabs.display.controls',['Objects' => $Objects])
-                                    <p>There are no {{$Objects['form'][0]}}</p>
+                                    <p>There are no Suppliers</p>
                                 @endif
                                 @include('tabs.display.models')
                             </div>
