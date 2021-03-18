@@ -11,7 +11,7 @@ class sales extends Model
     protected $fillable = [
         'inventory_id',
         'customer_id',
-        'payment-id',
+        'payment_id',
         'Quantity',
         'Price'
     ];

@@ -18,7 +18,6 @@
                 </div>
 
                     <div class="card-body">                       
-                        <h3 id="invH3" class= "mt-5 text-center">Heading</h3>
                         @if (is_null($Objects["shop_view"]))
                             <p>Select Trasation Type</p>
                             <div class="form-group row">
@@ -58,8 +57,6 @@
     var urlCheckOut = "{{ route('tran') }}";
     var tranID;
     $(document).ready(function(){
-        $("#invH3").hide();
-        //$("#grid").hide();
         shopingCart.clearCart();   
     });
 

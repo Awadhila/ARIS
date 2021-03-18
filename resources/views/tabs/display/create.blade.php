@@ -39,11 +39,11 @@
                             @endif
                             @if ($key == "catagory")
                                 <div class="col-sm">
-                                    <div class="form-check">
+                                    <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="Catagory" id="Catagory" value="fruit">
                                         <label class="form-check-label" for="Catagory">Fruit</label>
                                     </div>
-                                    <div class="form-check">
+                                    <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="Catagory" id="Catagory" value="vegetables">
                                         <label class="form-check-label" for="Catagory">Vegetables</label>
                                     </div>

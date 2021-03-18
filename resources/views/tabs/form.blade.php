@@ -62,22 +62,22 @@
                                 @if ($key == "catagory")
                                     @if ($value == "fruit")
                                         <div class="col-sm-8">
-                                            <div class="form-check">
+                                            <div class="form-check-inline">
                                                 <input class="form-check-input" type="radio" name="Catagory" id="Catagory" value="fruit" checked>
                                                 <label class="form-check-label" for="Catagory">Fruit</label>
                                             </div>
-                                            <div class="form-check">
+                                            <div class="form-check-inline">
                                                 <input class="form-check-input" type="radio" name="Catagory" id="Catagory" value="vegetables">
                                                 <label class="form-check-label" for="Catagory">Vegetables</label>
                                             </div>
                                         </div>
                                         @else
                                         <div class="col-sm-8">
-                                            <div class="form-check" >
+                                            <div class="form-check-inline" >
                                                 <input class="form-check-input" type="radio" name="Catagory" id="Catagory" value="fruit">
                                                 <label class="form-check-label" for="Catagory">Fruit</label>
                                             </div>
-                                            <div class="form-check">
+                                            <div class="form-check-inline">
                                                 <input class="form-check-input" type="radio" name="Catagory" id="Catagory" value="vegetables" checked>
                                                 <label class="form-check-label" for="Catagory">Vegetables</label>
                                             </div>

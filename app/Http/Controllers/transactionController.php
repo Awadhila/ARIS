@@ -60,7 +60,6 @@ class transactionController extends Controller
             'Status' =>null,
         ]);
         $payment = DB::table('payments')->where('Status',null)->first();
-
         for ($x = 0; $x <  count($Objects); $x++) {
             $inv = inventory::find($Objects[$x][0]);
 
@@ -77,22 +76,25 @@ class transactionController extends Controller
                 ]);
             }else {
                 $inv->stock -=floatval($Objects[$x][1]);
-                $total = floatval($inv->priceSale*$Objects[$x][1]);
+                $total = floatval($inv->priceSale)*floatval($Objects[$x][1]);
 
                 sales::create([
                     'inventory_id' => $Objects[$x][0],
                     'customer_id' => $request->Id,
                     'payment_id' => $payment->id,
-                    'Quantity' => $Objects[$x][1],
+                    'Quantity' => floatval($Objects[$x][1]),
                     'Price' =>  $total
                 ]);
             }
             $inv->save();
         }
-        return response()->json($Objects);
-
-
-        
-
+        $payment = payment::find($payment->id);
+        if ($request->status == "True"){
+            $payment->status = 1;
+        }else{
+            $payment->status = 0;
+        }
+        $payment->save();
+        return response()->json();
     }
 }
