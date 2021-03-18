@@ -37,7 +37,7 @@ class transactionController extends Controller
     public function Delivery($id){
         $Type = 'delivery';
         $id = $id;
-        $Objects = array("shop_view"=>DB::table('inventories')->where('supplier_id',$id)->Paginate(10, ['*'], 'shop_view'),
+        $Objects = array("shop_view"=>DB::table('inventories')->where('supplier',$id)->Paginate(10, ['*'], 'shop_view'),
                          "Type" =>$Type,
                          "id"=>$id
         );
@@ -46,7 +46,7 @@ class transactionController extends Controller
             ])->with(compact($Objects['shop_view']));
     }
 
-    function getCart(Request $request){
+    function checkout(Request $request){
         $Objects=array();
         $i = 0;
         foreach ($request->cart as $item) {
@@ -62,9 +62,10 @@ class transactionController extends Controller
         $payment = DB::table('payments')->where('Status',null)->first();
 
         for ($x = 0; $x <  count($Objects); $x++) {
-            $inv = DB::table('inventories')->where('id',$Objects[$x][0])->first();
-            $total = floatval($inv->price*$Objects[$x][1]);
+            $inv = inventory::find($Objects[$x][0]);
+
             if ($request->Type == "delivery"){
+                $total = floatval($inv->priceBuy*$Objects[$x][1]);
                 $inv->stock +=floatval($Objects[$x][1]);
 
                 delivery::create([
@@ -76,6 +77,7 @@ class transactionController extends Controller
                 ]);
             }else {
                 $inv->stock -=floatval($Objects[$x][1]);
+                $total = floatval($inv->priceSale*$Objects[$x][1]);
 
                 sales::create([
                     'inventory_id' => $Objects[$x][0],
@@ -85,10 +87,10 @@ class transactionController extends Controller
                     'Price' =>  $total
                 ]);
             }
-            $inv->save(); 
+            $inv->save();
         }
+        return response()->json($Objects);
 
-        return response()->json($request->Id);
 
         
 

@@ -20,8 +20,11 @@
                                 @if ($Objects['form_view']->count())
                                     @foreach ($Objects['form_view'] as $items)
                                     @include('tabs.display.controls',['Objects' => $Objects])
-
-                                        <form action={{ route('cus.update',$items->id) }} method="post" class="mb-4">
+                                        @if ($Objects['title'] == "Customer")
+                                            <form action={{ route('cus.update',$items->id) }} method="post" class="mb-4">
+                                        @else
+                                            <form action={{ route('supp.update',$items->id) }} method="post" class="mb-4">
+                                        @endif
                                             @csrf
                                             @include('tabs.form',['Objects' => $Objects])
                                             <button id="update" type="submit" class="btn btn-primary">Save changes</button>
@@ -47,7 +50,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    const type = @json($Objects["form"][0]);
+    const type = @json($Objects['title']);
     if (type == "Customer") {
         var url = '{{ route("cus.delete", ":id") }}';
     } else {

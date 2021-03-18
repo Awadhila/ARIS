@@ -127,7 +127,7 @@ $("#select").click(function(){
         var id = prompt("Please enter supplier id", "15");
         if (id == null || id == "") {
         } else {
-            window.location = "/transactions/sales"+id
+            window.location = "/transactions/sales/"+id
         }
     }else{
         var id = prompt("Please enter supplier id", "15");
@@ -142,12 +142,11 @@ $("#back").click(function(){
 });
 $("#checkOutCart").submit(function(e){
     e.preventDefault();
-    
     let cart = shopingCart.cart;
     let _token=$("input[name=_token]").val();
     console.log(cart);
     $.ajax({
-        url: "/checkout",
+        url: "/transactions/checkout",
         type: "POST",
         data: {
             Id:clientId,
@@ -155,13 +154,17 @@ $("#checkOutCart").submit(function(e){
             cart:cart,
             _token:_token,
         },
-        success:function(response) {
+        success:function(response,result) {
+
             $('#cartModal').modal('hide');
             $( "div" ).remove( ".cartItems" );
-
             if (response){
                 console.log(response);
             }
+        },
+        failure: function(result){
+            console.log("FAILED");
+            console.log(result);
         }
     });
 });
@@ -215,14 +218,14 @@ $('.quantity-right-plus').click(function(e){
     $( "#edit" ).click(function() {
         alert("cliked");
         $( "textarea,input" ).removeClass( "form-control-plaintext" ).addClass( "form-control" ).attr("readonly", false);
-        $("#tabsMenu,#searchForm,#recordsContols,#staticCatagory,#staticOrigin,.non-editable,#origin,#catagory").hide();
-        $("#PreviewImage,#origin_update,#supp,#catagory_update,#update").show();
+        $("#PreviewImage,.editable,#update").show();
+        $("#tabsMenu,#searchForm,#recordsContols,.non-editable,#origin,#catagory").hide();
     });
     $( "#update" ).click(function() {
         alert("cliked");
         $( "textarea,input" ).removeClass( "form-control" ).addClass( "form-control-plaintext" ).attr("readonly", false);
         $("#tabsMenu,#searchForm,#recordsContols,#staticCatagory,#staticOrigin,.non-editable,#origin,#catagory").show();
-        $("#PreviewImage,#origin_update,#supp,#catagory_update,#update").hide();
+        $("#PreviewImage,#Origin,#Supplier,#Catagory,#update").hide();
     });
     $( "#delBtn" ).click(function (){
         url = url.replace(':id', $(this).val());
