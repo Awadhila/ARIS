@@ -13,7 +13,7 @@ class Inventory extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-        'supplier_id',
+        'supplier',
         'origin',
         'catagory',
         'priceBuy',

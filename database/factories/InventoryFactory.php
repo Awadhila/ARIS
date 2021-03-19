@@ -38,7 +38,7 @@ class InventoryFactory extends Factory
         $price = $this->faker->numberBetween($min = '50', $max = '400');
         return [
             'name' =>strval($item[0])  ,
-            'supplier_id' => supplier::all()->random()->id,
+            'supplier' => supplier::all()->random()->id,
             'origin' => $this->faker->randomElement(['local','import']),
             'Catagory' => strval( $item[1]),
             'priceBuy' => $price,

@@ -14,25 +14,34 @@
               <div class="col"><p id="invPrice"></p></div>
           </div>
             <div class="row">
-              <div class="input-group">
-                <span class="input-group-btn col-sm-2">
-                  <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
-                    <span>-</span>
-                  </button>
-                </span>
-                <input type="text" id="quantity" name="quantity" class="col-sm-4 form-control input-number" value="1" min="1" max="100">
-                <span class="input-group-btn col-sm-2">
-                    <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
-                        <span>+</span>
+              <div class="col">
+                <div class="row">
+                  <label for="quantity" class="col-sm col-form-label">Quantity</label>
+                </div>
+                <div class="input-group">
+                  <span class="input-group-btn col-sm">
+                    <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
+                      <span>-</span>
                     </button>
-                </span>
-              </div>
+                  </span>
+                  <input readonly type="text" id="quantity" name="quantity" class="col-sm form-control--plaintext input-number" value="1" min="1">
+                  <span class="input-group-btn col-sm">
+                      <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                          <span>+</span>
+                      </button>
+                  </span>
+                </div>
+              </div>              
+              <div class="col">
+                <div class="row">
+                  <label for="available" class="col-sm col-form-label">Available</label>
+                  <input type="text" readonly class="form-control-plaintext" name="available" id="available">
+                </div> 
             </div>
           </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="button" id="add" class="btn btn btn-primary">Add</button>
-
         </div>
       </div>
     </div>

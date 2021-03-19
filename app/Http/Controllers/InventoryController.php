@@ -17,11 +17,10 @@ class InventoryController extends Controller
     {
         $this ->middleware('auth');
     }
-    public function index()
-    {
+    public function index(){
         $title = "Inventory";
-        $form = array("name", "origin","catagory","stock","sold","priceBuy","priceSale","image","discription");
-        $non_editable =array("stock","sold","priceSale","origin","catagory");
+        $form = array("name","supplier", "origin","catagory","priceBuy","image","discription");
+        $non_editable =array("stock","sold","priceSale");
         $Objects = array("Supp"=> supplier::get(),
                          "form_view"=>Inventory::with('suppliers','sales','deliveries')->Paginate(1, ['*'], 'form_view'), 
                          "list_view"=>Inventory::with('suppliers','sales','deliveries')->Paginate(10, ['*'], 'list_view'), 
@@ -33,20 +32,18 @@ class InventoryController extends Controller
             'Objects' => $Objects,
         ])->with(compact($Objects['form_view'],$Objects['list_view']));
     }
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $this->validate($request, [
             'Name' => 'max:255|required',
             'Origin' => 'required',Rule::in(['Local', 'Import']),
             'Catagory' =>'required',Rule::in(['Fruit', 'Vegetables']),
             'PriceBuy' =>'numeric|required'
-
         ]);
-        $Supp = DB::table('suppliers')->where('name',$request->Supplier)->first();
+        $Supp = DB::table('suppliers') ('name',$request->Supplier)->first();
 
         Inventory::create([
             'name' => $request->Name,
-            'supplier_id' => $Supp->id,
+            'supplier' => $Supp->id,
             'origin'=> $request->Origin,
             'catagory'=> $request->Catagory,
             'priceBuy' => $request->PriceBuy,

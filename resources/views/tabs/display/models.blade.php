@@ -7,14 +7,15 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            @if ($Objects['form'][0] == "Supplier"  || $Objects['form'][0] == "Customer")
-                @if ($Objects['form'][0] == "Customer")
+            @if ($Objects['title'] == "Inventory")
+
+                <form action="{{ route('inv')}}" method="post" class="mb-4">
+            @else
+                @if ($Objects['title'] == "Customer")
                     <form action="{{ route('cus') }}" method="post" class="mb-4">
                 @else
                     <form action="{{ route('supp') }}" method="post" class="mb-4">
                 @endif
-            @else
-                <form action="{{ route('inv')}}" method="post" class="mb-4">
             @endif
             @csrf
                 <div class="modal-body">
@@ -22,7 +23,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                @if ($Objects['form'][0] == "Inventory")
+                @if ($Objects['title'] == "Inventory")
                     @if ($Objects["Supp"]->count())
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     @endif

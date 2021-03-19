@@ -43,7 +43,7 @@ class clientsController extends Controller
         ]);
         $request->user()->suppliers()->create([
             'name' => $request->Name,
-            'Contact' =>$request->contact
+            'contact' =>$request->Contact
         ]);
         return back();
     }
@@ -54,7 +54,7 @@ class clientsController extends Controller
         ]);
         $request->user()->customers()->create([
             'name' => $request->Name,
-            'Contact' =>$request->contact
+            'contact' =>$request->Contact
         ]);
         return back();
     }
@@ -67,7 +67,7 @@ class clientsController extends Controller
         $cus->name = $request->Name;
         $cus->contact =$request->Contact;
         $cus->save();        
-        return redirect()->route('supp');
+        return back();
     }
     public function cus_update(Request $request, $id){
         $this->validate($request, [
@@ -78,14 +78,16 @@ class clientsController extends Controller
         $cus->name = $request->Name;
         $cus->contact =$request->Contact;
         $cus->save();        
-        return redirect()->route('cus');
+        return back();
     }
     public function supp_delete($id){
+        
         $supp = supplier::find($id);
         $supp->delete();
         return redirect()->route('supp');
     }
     public function cus_delete($id){
+
         $cus = customer::find($id);
         $cus->delete();
         return redirect()->route('cus');
