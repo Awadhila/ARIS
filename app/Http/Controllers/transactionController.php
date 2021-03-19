@@ -10,14 +10,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-<<<<<<< HEAD
-class transactionController extends Controller{
-=======
 use function PHPSTORM_META\type;
 
 class transactionController extends Controller
 {
->>>>>>> 368c90513593cb05823ef3e2d260e4e6aaebcac2
     public function index(){
         $Title = 'Transaction';
         $Type = 'Type';
@@ -98,12 +94,8 @@ class transactionController extends Controller
         ]);
         $payment = DB::table('payments')->where('Status',null)->first();
         for ($x = 0; $x <  count($Objects); $x++) {
-<<<<<<< HEAD
-            $inv = Inventory::find($Objects[$x][0]);   
-=======
             $inv = inventory::find($Objects[$x][0]);
 
->>>>>>> 368c90513593cb05823ef3e2d260e4e6aaebcac2
             if ($request->Type == "delivery"){
                 $total = floatval(floatval($inv->priceBuy)*floatval($Objects[$x][1]));
                 $inv->stock +=floatval($Objects[$x][1]);
@@ -115,16 +107,10 @@ class transactionController extends Controller
                     'Quantity' => floatval($Objects[$x][1]),
                     'Price' =>  $total
                 ]);
-<<<<<<< HEAD
-            }else { 
-                $inv->sold +=floatval($Objects[$x][1]);
-                $total = floatval($inv->priceSale*$Objects[$x][1]);
-=======
             }else {
                 $inv->stock -=floatval($Objects[$x][1]);
                 $total = floatval(floatval($inv->priceSale)*floatval($Objects[$x][1]));
 
->>>>>>> 368c90513593cb05823ef3e2d260e4e6aaebcac2
                 sales::create([
                     'inventory_id' => $Objects[$x][0],
                     'customer_id' => $request->Id,
@@ -135,17 +121,14 @@ class transactionController extends Controller
             }
             $inv->save();
         }
-<<<<<<< HEAD
-        return response()->json($request->Id);
-=======
         $payment = payment::find($payment->id);
         if ($request->status == "True"){
             $payment->status = 1;
         }else{
             $payment->status = 0;
         }
+        
         $payment->save();
         return response()->json();
->>>>>>> 368c90513593cb05823ef3e2d260e4e6aaebcac2
     }
 }

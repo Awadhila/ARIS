@@ -30,5 +30,5 @@
             @endif
         @endforeach
     @else
-        <p>There are no {{$Objects['title']}}</p>
+        <p>There are no {{$Objects['title']}} </p>
     @endif
