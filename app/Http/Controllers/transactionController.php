@@ -10,24 +10,52 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
+use function PHPSTORM_META\type;
+
 class transactionController extends Controller
 {
     public function index(){
+        $Title = 'Transaction';
         $Type = 'Type';
-        $Objects = array("shop_view"=>null,
-            'Type' =>$Type,
-            'id' =>null
+        $sales = array();
+        $delivery = array();
+        $payments = payment::Paginate(10, ['*'], 'payments');
+        foreach ($payments as $value) {
+            if ($value->Type == 'delivery'){
+                $items = DB::table('deliveries')
+                ->where('payment_id', $value->id)
+                ->get();
+                array_push($delivery, $items);               
+            }else{
+                $items = DB::table('sales')
+                ->where('payment_id', $value->id)
+                ->get();
+                array_push($sales, $items);
+            }  
+        } 
+        $Objects = array("form_view"=> $payments,
+                         "Sales"=> $sales,
+                         "delivery"=>$delivery,
+                         "shop_view"=>null,
+                         'Type' =>$Type,
+                         'id' =>null,
+                         'title'=> $Title
         );
         return view('pages.transaction',[
             'Objects' => $Objects,
             ]);
     }
     public function Sales($id){
+        $Title = 'Transaction';
         $Type = 'sales';
         $id = $id;
         $Objects = array("shop_view"=>Inventory::with('suppliers','sales','deliveries')->Paginate(10, ['*'], 'shop_view'),
                          "Type" =>$Type,
-                         "id"=>$id
+                         "id"=>$id,
+                         "form_view"=>null,
+                         "Sales"=>null,
+                         "delivery"=>null,
+                         'title'=> $Title
         );
         return view('pages.transaction',[
             'Objects' => $Objects,
@@ -35,11 +63,16 @@ class transactionController extends Controller
     }
 
     public function Delivery($id){
+        $Title = 'Transaction';
         $Type = 'delivery';
         $id = $id;
         $Objects = array("shop_view"=>DB::table('inventories')->where('supplier',$id)->Paginate(10, ['*'], 'shop_view'),
                          "Type" =>$Type,
-                         "id"=>$id
+                         "id"=>$id,
+                         "form_view"=>null,
+                         "Sales"=>null,
+                         "delivery"=>null,
+                         'title'=> $Title
         );
         return view('pages.transaction',[
             'Objects' => $Objects,
@@ -64,7 +97,7 @@ class transactionController extends Controller
             $inv = inventory::find($Objects[$x][0]);
 
             if ($request->Type == "delivery"){
-                $total = floatval($inv->priceBuy*$Objects[$x][1]);
+                $total = floatval(floatval($inv->priceBuy)*floatval($Objects[$x][1]));
                 $inv->stock +=floatval($Objects[$x][1]);
 
                 delivery::create([
@@ -76,7 +109,7 @@ class transactionController extends Controller
                 ]);
             }else {
                 $inv->stock -=floatval($Objects[$x][1]);
-                $total = floatval($inv->priceSale)*floatval($Objects[$x][1]);
+                $total = floatval(floatval($inv->priceSale)*floatval($Objects[$x][1]));
 
                 sales::create([
                     'inventory_id' => $Objects[$x][0],

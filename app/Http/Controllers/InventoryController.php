@@ -17,8 +17,7 @@ class InventoryController extends Controller
     {
         $this ->middleware('auth');
     }
-    public function index()
-    {
+    public function index(){
         $title = "Inventory";
         $form = array("name","supplier", "origin","catagory","priceBuy","image","discription");
         $non_editable =array("stock","sold","priceSale");
@@ -33,16 +32,14 @@ class InventoryController extends Controller
             'Objects' => $Objects,
         ])->with(compact($Objects['form_view'],$Objects['list_view']));
     }
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $this->validate($request, [
             'Name' => 'max:255|required',
             'Origin' => 'required',Rule::in(['Local', 'Import']),
             'Catagory' =>'required',Rule::in(['Fruit', 'Vegetables']),
             'PriceBuy' =>'numeric|required'
-
         ]);
-        $Supp = DB::table('suppliers')->where('name',$request->Supplier)->first();
+        $Supp = DB::table('suppliers') ('name',$request->Supplier)->first();
 
         Inventory::create([
             'name' => $request->Name,

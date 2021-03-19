@@ -5,6 +5,7 @@
                 <div class="row-sm">
                 {{$Objects['form_view']->links(("pagination::bootstrap-4")) }}
                 </div>
+                @if ($Objects['title'] != "Transaction")
                 <div class="row-sm">
                     <nav>
 
@@ -21,6 +22,9 @@
 
                     </nav>
                 </div>
+                    
+                @endif
+
         </div>
     </div>
   </div> 
