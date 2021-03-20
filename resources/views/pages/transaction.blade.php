@@ -39,7 +39,7 @@
                     @endif
                 </div>
             </div>
-            @if ($Objects["Type"] == "Type")
+            @if ($Objects["Type"] != "sales" ||$Objects["Type"] != "delivery" )
             <div class="card">
                 <div class="card-header">{{ __('View Transactions ') }}</div>
                 <div class="card-body">                       
@@ -54,23 +54,49 @@
 
 
 <script type="text/javascript">
-// ***** Shoping Cart Functions Start **********
-    const items = @json($Objects["shop_view"]);
-    const clientId = @json($Objects["id"]);
-    const type = @json($Objects["Type"]);
-    const payments = @json($Objects["form_view"]);
-    const sales = @json($Objects["Sales"]);
-    const delivery = @json($Objects["delivery"]);
-    console.log(payments);
-    console.log(sales);
-    console.log(delivery);
+    let items = @json($Objects["shop_view"]);
+    let clientId = @json($Objects["id"]);
+    let type = @json($Objects["Type"]);
+    let payment = @json($Objects["form_view"]);
+    let items_tran = @json($Objects["list_view"]);
+    let tab = @json($Objects["tab"]);
+    console.log(payment);
+    console.log(items);
 
-    var url = "{{asset('storage/Images/')}}/";
-    var urlCheckOut = "{{ route('tran') }}";
-    var tranID;
+    let url = "{{asset('storage/Images/')}}/";
+    let urlCheckOut = "{{ route('tran') }}";
+    let tranID;
     $(document).ready(function(){
         shopingCart.clearCart();   
     });
-
+    if (tab == "credit") {
+        $( "#ex1-tabs-2" ).addClass("show active" );
+        $( "#tab2 a" ).addClass("active" );
+        $("#tab2 a").attr("aria-selected","true");
+        $( "#ex1-tabs-1" ).removeClass("show active" );
+        $( "#tab1 a" ).removeClass("active");
+        $("#tab1 a").attr("aria-selected","false");
+    } else {
+        $( "#ex1-tabs-1" ).addClass("show active" );
+        $( "#tab1 a" ).addClass("active" );
+        $( "#tab1 a" ).attr("aria-selected","true");
+        $( "#ex1-tabs-2" ).removeClass("show active" );
+        $( "#tab2 a" ).removeClass("active");
+        $( "#tab2 a" ).attr("aria-selected","false");
+    }
+    $("#tab1").click(function(){
+        if(type = "Sales View"){
+            window.location = "/transactions/sales/view/debit"
+        }else{
+            window.location = "/transactions/delivery/view/debit"
+        }
+    });
+    $("#tab2").click(function(){
+        if(type = "Sales View"){
+            window.location = "/transactions/sales/view/credit"
+        }else{
+            window.location = "/transactions/delivery/view/credit"
+        }
+    });
 </script>
 @endsection

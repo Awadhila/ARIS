@@ -27,10 +27,10 @@
                     @endif
                 @else
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('cus') }}">{{ __('Customers') }}</a>
+                        <a class="nav-link" href="{{ route('cus' ,['form']) }}">{{ __('Customers') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('supp') }}">{{ __('Suppliers') }}</a>
+                        <a class="nav-link" href="{{ route('supp',['form']) }}">{{ __('Suppliers') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('inv') }}">{{ __('Inventory') }}</a>

@@ -12,9 +12,9 @@
                 <form action="{{ route('inv')}}" method="post" class="mb-4">
             @else
                 @if ($Objects['title'] == "Customer")
-                    <form action="{{ route('cus') }}" method="post" class="mb-4">
+                    <form action="{{ route('cus',['form']) }}" method="post" class="mb-4">
                 @else
-                    <form action="{{ route('supp') }}" method="post" class="mb-4">
+                    <form action="{{ route('supp',['form']) }}" method="post" class="mb-4">
                 @endif
             @endif
             @csrf

@@ -1,12 +1,12 @@
 @include('layouts.tabs')
+@include('tabs.display.controls',['Objects' => $Objects])
+
 <div class="tab-content" id="ex1-content">
     <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel"  aria-labelledby="ex1-tab-1">
         <div class="border-bottom  ">
             @if ($Objects['form_view']->count())
                 @foreach ($Objects['form_view'] as $items)
-                    @if ($items->Type == "sales" && $items->Status == 1)
                         @include('tabs.form',['Objects' => $Objects])
-                    @endif
                 @endforeach
             @else
                 @include('tabs.display.controls',['Objects' => $Objects])
@@ -18,9 +18,7 @@
         <div class="border-bottom  ">
             @if ($Objects['form_view']->count())
                 @foreach ($Objects['form_view'] as $items)
-                    @if ($items->Type == "sales" && $items->Status == 0)
                         @include('tabs.form',['Objects' => $Objects])
-                    @endif
                 @endforeach
             @else
                 @include('tabs.display.controls',['Objects' => $Objects])

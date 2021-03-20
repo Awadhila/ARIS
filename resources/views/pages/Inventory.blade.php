@@ -67,7 +67,7 @@
     $(document).ready(function(){
         $("#update,#origin_update,#supp,#f8,#PreviewImage,#catagory_update,#update").hide();
     });
- 
+
 
 </script>
 @endsection

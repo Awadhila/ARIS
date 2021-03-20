@@ -102,7 +102,6 @@
                             @endif
                             @if ($key == "discription")
                                 <textarea readonly class="form-control-plaintext" name="Discription" id="Discription" rows="3">{{$value}}</textarea> 
-                            </div>
                             @endif
 
                         </div>

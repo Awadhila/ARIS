@@ -240,3 +240,14 @@ $('.quantity-right-plus').click(function(e){
         url = url.replace(':id', $(this).val());
         $("#delete").attr("href", url )
     });
+
+
+
+
+    $("#sales_view").click(function(){
+        window.location = "/transactions/sales/view/debit"
+    });
+
+    $("#delivery_view").click(function(){
+        window.location = "/transactions/delivery/view/credit"
+    });
