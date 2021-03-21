@@ -6,6 +6,8 @@ use App\Models\sales;
 use App\Models\payment;
 use App\Models\delivery;
 use App\Models\Inventory;
+use App\Models\supplier;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -32,6 +34,8 @@ class transactionController extends Controller
     public function sales_view($tab){
         $Title = 'Transaction';
         $Type = 'Sales View';
+        $form = array("supplier_id","inventory_id", "quantity","price");
+
         $sales = array();
         if($tab == 'debit'){
             $payments =  payment::where('type', '=', "sales")
@@ -52,7 +56,8 @@ class transactionController extends Controller
                          'Type' =>$Type,
                          'id' =>null,
                          'title'=> $Title,
-                         'tab'=>$tab
+                         'tab'=>$tab,
+                         'form'=> $form
         );
         return view('pages.transaction',[
             'Objects' => $Objects,
@@ -61,7 +66,8 @@ class transactionController extends Controller
     public function delivery_view($tab){
         $Title = 'Transaction';
         $Type = 'Delivery View';
-        $delivery = array();
+        $form = array("supplier_id","inventory_id", "Quantity","price");
+
         if($tab == 'debit'){
             $payments =  payment::where('type', '=', "delivery")
             ->where('status', '=', 1)
@@ -72,20 +78,22 @@ class transactionController extends Controller
             ->Paginate(1, ['*'], 'form_view');
         }
         foreach ($payments as $value) {
-            $items = DB::table('deliveries')->where('payment_id',  $value->id)->get();
-            array_push($delivery, $items);
+            $items = delivery::with(['suppliers','inventories'])
+                             ->where('payment_id',  $value->id)
+                             ->Paginate(5, ['*'], 'list_view');
         }
         $Objects = array("form_view"=> $payments,
-                         "list_view"=>$delivery,
+                         "list_view"=> $items,
                          "shop_view"=>null,
                          'Type' =>$Type,
                          'id' =>null,
                          'title'=> $Title,
-                         'tab'=>$tab
+                         'tab'=>$tab,
+                         'form'=> $form
         );
         return view('pages.transaction',[
             'Objects' => $Objects,
-            ])->with(compact($Objects['form_view']));
+            ])->with(compact($Objects['form_view'],$Objects['list_view']));
     }
     public function Sales($id){
         $Title = 'Transaction';
@@ -125,6 +133,7 @@ class transactionController extends Controller
 
     function checkout(Request $request){
         $Objects=array();
+        $total_pay  =0;
         $i = 0;
         foreach ($request->cart as $item) {
             $Objects[$i][0] = floatval($item["id"]);
@@ -144,6 +153,7 @@ class transactionController extends Controller
                 $total = floatval(floatval($inv->priceBuy)*floatval($Objects[$x][1]));
                 $inv->stock +=floatval($Objects[$x][1]);
                 $total = floatval($inv->priceBuy*$Objects[$x][1]);
+                $total_pay +=floatval($total);
                 delivery::create([
                     'inventory_id' => $inv->id,
                     'supplier_id' => $request->Id,
@@ -153,7 +163,8 @@ class transactionController extends Controller
                 ]);
             }else {
                 $inv->stock -=floatval($Objects[$x][1]);
-                $total = floatval(floatval($inv->priceSale)*floatval($Objects[$x][1]));
+                $total = floatval(floatval($inv->priceSale) *floatval($Objects[$x][1]));
+                $total_pay +=floatval($total);
 
                 sales::create([
                     'inventory_id' => $Objects[$x][0],
@@ -171,7 +182,7 @@ class transactionController extends Controller
         }else{
             $payment->status = 0;
         }
-        
+        $payment->Total = $total_pay;
         $payment->save();
         return response()->json();
     }

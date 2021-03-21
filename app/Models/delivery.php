@@ -15,12 +15,16 @@ class delivery extends Model
         'Quantity',
         'Price'
     ];
-    public function payment()
+    public function payments()
     {
         return $this->belongsTo(payment::class);
     }
-    public function Inventory()
+    public function Inventories()
     {
-        return $this->belongsTo(Inventory::class);
+        return $this->belongsTo(Inventory::class, 'inventory_id');
+    }
+    public function suppliers()
+    {
+        return $this->belongsTo(supplier::class,  'supplier_id');
     }
 }

@@ -171,10 +171,10 @@ $("#checkOutCart").submit(function(e){
                 _token:_token,
             },
             success:function(response,result) {
-                $('#cartModal').modal('hide');
+                /*$('#cartModal').modal('hide');
                 $( "div" ).remove( ".cartItems" );
                 shopingCart.checkout();
-                window.location = "/transactions"
+                window.location = "/transactions"*/
             },
 
         });
