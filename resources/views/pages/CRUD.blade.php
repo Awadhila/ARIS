@@ -85,7 +85,7 @@
         }
     });
     $("#tab2").click(function(){
-        if(Customer){
+        if(type == "Customer"){ 
             window.location = "/customers/list"
         }else{
             window.location = "/suppliers/list"

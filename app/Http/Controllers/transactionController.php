@@ -44,8 +44,8 @@ class transactionController extends Controller
         }
         foreach ($payments as $value) {
             $items = DB::table('sales')->where('payment_id',  $value->id)->get();
+            array_push($sales, $items);
         }
-        array_push($sales, $items);
         $Objects = array("form_view"=> $payments,
                          "list_view"=> $sales,
                          "shop_view"=>null,
@@ -73,8 +73,8 @@ class transactionController extends Controller
         }
         foreach ($payments as $value) {
             $items = DB::table('deliveries')->where('payment_id',  $value->id)->get();
+            array_push($delivery, $items);
         }
-        array_push($delivery, $items);
         $Objects = array("form_view"=> $payments,
                          "list_view"=>$delivery,
                          "shop_view"=>null,
@@ -95,9 +95,10 @@ class transactionController extends Controller
                          "Type" =>$Type,
                          "id"=>$id,
                          "form_view"=>null,
-                         "Sales"=>null,
-                         "delivery"=>null,
-                         'title'=> $Title
+                         "list_view"=>null,
+                         'title'=> $Title,
+                         'tab'=>null
+
         );
         return view('pages.transaction',[
             'Objects' => $Objects,
@@ -112,9 +113,10 @@ class transactionController extends Controller
                          "Type" =>$Type,
                          "id"=>$id,
                          "form_view"=>null,
-                         "Sales"=>null,
-                         "delivery"=>null,
-                         'title'=> $Title
+                         "list_view"=>null,
+                         'title'=> $Title,
+                         'tab'=>null
+
         );
         return view('pages.transaction',[
             'Objects' => $Objects,
