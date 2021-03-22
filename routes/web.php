@@ -10,6 +10,8 @@ use App\Http\Controllers\Auth\registerController;
 
 Route::get('/',[registerController::class, 'index']);
 Route::get('/',[dashboardController::class, 'index']);
+Route::get('/sales/view/{tab}', [dashboardController::class, 'sales_view']);
+Route::get('/delivery/view/{tab}', [dashboardController::class, 'delivery_view']);
 
 Route::get('/customers/{tab}', [clientsController::class, 'cus_index'])->name('cus');
 Route::post('/customers/{tab}', [clientsController::class, 'cus_store']);
@@ -27,8 +29,7 @@ Route::post('/inventory/edit/{id}', [InventoryController::class, 'update'])->nam
 Route::get('/inventory/delete/{id}', [InventoryController::class, 'delete'])->name('inv.delete');
 
 Route::get('/transactions', [transactionController::class, 'index'])->name('tran');
-Route::get('/transactions/sales/view/{tab}', [transactionController::class, 'sales_view'])->name('tran.sales');
-Route::get('/transactions/delivery/view/{tab}', [transactionController::class, 'delivery_view'])->name('tran.delivery');
+
 
 Route::get('/transactions/delivery/{id}', [transactionController::class, 'Delivery']);
 Route::get('/transactions/sales/{id}', [transactionController::class, 'Sales']);

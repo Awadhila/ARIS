@@ -1,9 +1,9 @@
 
 @if ($Objects['tab'] != null)
   @if ($Objects['Type'] == "Delivery View")
-    @include('tabs.display.delivery')
+    @include('tabs.display.trans_view')
   @else
-    @include('tabs.display.sales')
+    @include('tabs.display.trans_view')
   @endif
 @else
   <div class="container">

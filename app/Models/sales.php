@@ -15,16 +15,16 @@ class sales extends Model
         'Quantity',
         'Price'
     ];
-    public function Inventory()
+    public function inventories()
     {
-        return $this->belongsTo(Inventory::class);
+        return $this->belongsTo(Inventory::class,'inventory_id');
     }
     public function payment()
     {
         return $this->belongsTo(payment::class);
     }
-    public function customer()
+    public function customers()
     {
-        return $this->belongsTo(customer::class);
+        return $this->belongsTo(customer::class, 'customer_id');
     }
 }

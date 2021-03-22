@@ -39,7 +39,7 @@ class InventoryController extends Controller
             'Catagory' =>'required',Rule::in(['Fruit', 'Vegetables']),
             'PriceBuy' =>'numeric|required'
         ]);
-        $Supp = DB::table('suppliers') ('name',$request->Supplier)->first();
+        $Supp = supplier::where('name',  $request->Supplier)->first();
 
         Inventory::create([
             'name' => $request->Name,

@@ -21,7 +21,7 @@ class Inventory extends Model
     ];
     public function suppliers()
     {
-        return $this->belongsTo(supplier::class);
+        return $this->belongsTo(supplier::class,'supplier');
     }
     public function sales()
     {

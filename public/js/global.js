@@ -37,9 +37,9 @@ shopingCart.removeItemFromCart = function  (id){
     this.saveCart ()
     //return message;
 }
-shopingCart.removeItemFromCartAll = function  (name){
+shopingCart.removeItemFromCartAll = function  (id){
 for (var i in this.cart) {
-    if (this.cart[i].name === name) {
+    if (this.cart[i].id === id) {
         this.cart.splice(i,1)
         break;
     }
@@ -66,12 +66,12 @@ shopingCart.displayPaymentCart = function () {
             $( '#count'+item.id).replaceWith( "<div id='count"+item.id+"' class='col-sm'>"+ cartArray[i].count +"</div>");
             $( '#total'+item.id).replaceWith( "<div id='total"+item.id+"'class='col-sm'>"+ total +"</div>" );
         }else {
-            output += '<div class="row mb-1 cartItems">';
+            output += '<div class="row mb-1 cartItems '+item.id+'">';
             output += "<div class='col-sm '>"+ item.name +"</div>";
             output += "<div id='count"+item.id+"' class='col-sm'>"+ cartArray[i].count +"</div>";
             output += "<div class='col-sm'>"+ price +"</div>";
             output += "<div id='total"+item.id+"'class='col-sm'>"+ total +"</div>";
-            output += "<div class='col-sm'><button type='button' class='btn btn-danger'>Remove</button></div>";
+            output += "<div class='col-sm'><button id="+item.id+" type='button' onclick='removeItem(this.id)' class='remove btn btn-danger'>Remove</button></div>";
             output += '</div>';
             $("#cart").append(output);
         }
@@ -107,11 +107,16 @@ $("#add").click(function(){
         $('#quantity').val(1);
         quantity=1;
         shopingCart.displayPaymentCart();
-        $('#AddToCart').modal('hide');
-
-        
+        $('#AddToCart').modal('hide');        
     }
 });
+
+function removeItem(input){
+    $("."+input).slideUp(function(){
+        $( "."+input ).remove();
+    })
+    shopingCart.removeItemFromCartAll(input);
+}
 
 $(".atc").click(function(){
     itemId = $(this).val();
@@ -120,7 +125,6 @@ $(".atc").click(function(){
     $("#invImg").attr("src", url+item.image);
     $('#invTitleModel').text(item.name);
     $('#available').attr("value",available);
-
     if (type == "sales"){
         $('#invPrice').text("Price: " + item.priceSale);
         $('#quantity').attr("max",available);
@@ -132,18 +136,37 @@ $(".atc").click(function(){
     }
 });
 $("#select").click(function(){
-    alert($("#type").val());
     if ($("#type").val() == 'Sales'){
-        var id = prompt("Please enter supplier id", "15");
+        var id = prompt("Please enter Customer id", "15");
         if (id == null || id == "") {
         } else {
-            window.location = "/transactions/sales/"+id
+            let x = 0
+            customers.forEach(item => {
+                x++;
+                if ( item.id == id ) {
+                    window.location = "/transactions/sales/"+id
+                    x--;
+                }else if (customers.length == x ){
+                    $msg = "No customer with entered ID"
+                    alert($msg);
+                }});
+
         }
     }else{
-        var id = prompt("Please enter supplier id", "15");
+        var id = prompt("Please enter Supplier id", "15");
         if (id == null || id == "") {
         } else {
-            window.location = "/transactions/delivery/"+id
+            let x = 0
+            suppliers.forEach(item => {
+                x++;
+                if ( item.id == id ) {
+                    window.location = "/transactions/delivery/"+id
+                    x--;
+                }else if (suppliers.length == x ){
+                    $msg = "No supplier with entered ID"
+                    alert($msg);
+                }});
+
         }
     }
 });
@@ -171,17 +194,15 @@ $("#checkOutCart").submit(function(e){
                 _token:_token,
             },
             success:function(response,result) {
-                /*$('#cartModal').modal('hide');
+                $('#cartModal').modal('hide');
                 $( "div" ).remove( ".cartItems" );
                 shopingCart.checkout();
-                window.location = "/transactions"*/
+                window.location = "/transactions";
             },
-
         });
     }
 
 });
-
 
 $("#new").click(function(){
     var val = $("#new").val();
@@ -191,24 +212,13 @@ $("#edit").click(function(){
     var val = $("#edit").val();
     $("#ModaleditTitle").html(val);
 });
-$("#new").click(function(){
-    alert();
-});
 
-$('.quantity-right-plus').click(function(e){
-        
-        // Stop acting like a button
+$('.quantity-right-plus').click(function(e){       
         e.preventDefault();
-        // Get the field name
         quantity = parseInt($('#quantity').val());
-
-        // If is not undefined
         if(quantity < (parseInt($("#quantity").attr("max")))){
             $('#quantity').val(quantity + 1);
         }
-
-            // Increment
-        
     });
 
     $('.quantity-left-minus').click(function(e){
@@ -227,14 +237,14 @@ $('.quantity-right-plus').click(function(e){
     $( "#edit" ).click(function() {
         alert("cliked");
         $( "textarea,input" ).removeClass( "form-control-plaintext" ).addClass( "form-control" ).attr("readonly", false);
-        $("#PreviewImage,.editable,#update").show();
-        $("#tabsMenu,#searchForm,#recordsContols,.non-editable,#origin,#catagory").hide();
+        $("#PreviewImage,.editable,#update,.updatable").show();
+        $("#tabsMenu,#searchForm,#recordsContols,.non-editable,.staticUpdatable").hide();
     });
     $( "#update" ).click(function() {
         alert("cliked");
         $( "textarea,input" ).removeClass( "form-control" ).addClass( "form-control-plaintext" ).attr("readonly", false);
-        $("#tabsMenu,#searchForm,#recordsContols,#staticCatagory,#staticOrigin,.non-editable,#origin,#catagory").show();
-        $("#PreviewImage,#Origin,#Supplier,#Catagory,#update").hide();
+        $("#tabsMenu,#searchForm,#recordsContols,.non-editable,.staticUpdatable").show();
+        $("#PreviewImage,#Origin,#Supplier,#update,.updatable").hide();
     });
     $( "#delBtn" ).click(function (){
         url = url.replace(':id', $(this).val());
@@ -242,12 +252,10 @@ $('.quantity-right-plus').click(function(e){
     });
 
 
-
-
     $("#sales_view").click(function(){
-        window.location = "/transactions/sales/view/debit"
+        window.location = "sales/view/debit"
     });
 
     $("#delivery_view").click(function(){
-        window.location = "/transactions/delivery/view/credit"
+        window.location = "delivery/view/credit"
     });

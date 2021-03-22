@@ -4,109 +4,42 @@ namespace App\Http\Controllers;
 
 use App\Models\sales;
 use App\Models\payment;
+use App\Models\customer;
 use App\Models\delivery;
-use App\Models\Inventory;
 use App\Models\supplier;
 
+use App\Models\Inventory;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-
-use function PHPSTORM_META\type;
 
 class transactionController extends Controller
 {
     public function index(){
         $Title = 'Transaction';
-        $Type = 'View';
-        $Objects = array("form_view"=>null ,
-                         "list_view"=>null ,
-                         "shop_view"=>null,
-                         'Type' =>$Type,
-                         'id' =>null,
-                         'title'=> $Title,
-                         'tab'=>null
+        $Type = 'Select';
+        $Objects = array("shop_view"=>Inventory::with('suppliers','sales','deliveries')->Paginate(10, ['*'], 'shop_view'),
+                        'suppliers'=>supplier::select('id')->get(),
+                        'customers'=>customer::select('id')->get(),
+                        'Type' =>$Type,
+                        'id' =>null,
+                        'title'=> $Title,
         );
         return view('pages.transaction',[
             'Objects' => $Objects,
             ]);
-    }
-    public function sales_view($tab){
-        $Title = 'Transaction';
-        $Type = 'Sales View';
-        $form = array("supplier_id","inventory_id", "quantity","price");
-
-        $sales = array();
-        if($tab == 'debit'){
-            $payments =  payment::where('type', '=', "sales")
-            ->where('status', '=', 1)
-            ->Paginate(1, ['*'], 'form_view');
-        }else{
-            $payments = payment::where('type', '=', "sales")
-            ->where('status', '=', 0)
-            ->Paginate(1, ['*'], 'form_view');
-        }
-        foreach ($payments as $value) {
-            $items = DB::table('sales')->where('payment_id',  $value->id)->get();
-            array_push($sales, $items);
-        }
-        $Objects = array("form_view"=> $payments,
-                         "list_view"=> $sales,
-                         "shop_view"=>null,
-                         'Type' =>$Type,
-                         'id' =>null,
-                         'title'=> $Title,
-                         'tab'=>$tab,
-                         'form'=> $form
-        );
-        return view('pages.transaction',[
-            'Objects' => $Objects,
-            ])->with(compact($Objects['form_view']));
-    }
-    public function delivery_view($tab){
-        $Title = 'Transaction';
-        $Type = 'Delivery View';
-        $form = array("supplier_id","inventory_id", "Quantity","price");
-
-        if($tab == 'debit'){
-            $payments =  payment::where('type', '=', "delivery")
-            ->where('status', '=', 1)
-            ->Paginate(1, ['*'], 'form_view');
-        }else{
-            $payments =  payment::where('type', '=', "delivery")
-            ->where('status', '=', 0)
-            ->Paginate(1, ['*'], 'form_view');
-        }
-        foreach ($payments as $value) {
-            $items = delivery::with(['suppliers','inventories'])
-                             ->where('payment_id',  $value->id)
-                             ->Paginate(5, ['*'], 'list_view');
-        }
-        $Objects = array("form_view"=> $payments,
-                         "list_view"=> $items,
-                         "shop_view"=>null,
-                         'Type' =>$Type,
-                         'id' =>null,
-                         'title'=> $Title,
-                         'tab'=>$tab,
-                         'form'=> $form
-        );
-        return view('pages.transaction',[
-            'Objects' => $Objects,
-            ])->with(compact($Objects['form_view'],$Objects['list_view']));
     }
     public function Sales($id){
         $Title = 'Transaction';
         $Type = 'sales';
         $id = $id;
         $Objects = array("shop_view"=>Inventory::with('suppliers','sales','deliveries')->Paginate(10, ['*'], 'shop_view'),
+                        'suppliers'=>null,
+                        'customers'=>null,
                          "Type" =>$Type,
                          "id"=>$id,
-                         "form_view"=>null,
-                         "list_view"=>null,
                          'title'=> $Title,
-                         'tab'=>null
-
         );
         return view('pages.transaction',[
             'Objects' => $Objects,
@@ -120,8 +53,8 @@ class transactionController extends Controller
         $Objects = array("shop_view"=>DB::table('inventories')->where('supplier',$id)->Paginate(10, ['*'], 'shop_view'),
                          "Type" =>$Type,
                          "id"=>$id,
-                         "form_view"=>null,
-                         "list_view"=>null,
+                         'suppliers'=>null,
+                         'customers'=>null,
                          'title'=> $Title,
                          'tab'=>null
 

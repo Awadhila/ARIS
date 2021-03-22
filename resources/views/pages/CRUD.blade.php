@@ -27,7 +27,7 @@
                                         @endif
                                             @csrf
                                             @include('tabs.form',['Objects' => $Objects])
-                                            <button id="update" type="submit" class="btn btn-primary">Save changes</button>
+                                            <button style="display:none;" id="update" type="submit" class="btn btn-primary">Update Changes</button>
 
                                         </form>
 
