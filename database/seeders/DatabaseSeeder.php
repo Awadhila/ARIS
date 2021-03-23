@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             cusSeeder::class,
             suppSeeder::class,
             invSeeder::class,
+            TransactionSeeder::class,
         ]);
     }
 }

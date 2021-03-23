@@ -7,8 +7,8 @@ use App\Models\payment;
 use App\Models\customer;
 use App\Models\delivery;
 use App\Models\supplier;
-
 use App\Models\Inventory;
+
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -81,7 +81,6 @@ class transactionController extends Controller
         $payment = DB::table('payments')->where('Status',null)->first();
         for ($x = 0; $x <  count($Objects); $x++) {
             $inv = inventory::find($Objects[$x][0]);
-
             if ($request->Type == "delivery"){
                 $total = floatval(floatval($inv->priceBuy)*floatval($Objects[$x][1]));
                 $inv->stock +=floatval($Objects[$x][1]);
@@ -95,10 +94,9 @@ class transactionController extends Controller
                     'Price' =>  $total
                 ]);
             }else {
-                $inv->stock -=floatval($Objects[$x][1]);
+                $inv->sales +=floatval($Objects[$x][1]);
                 $total = floatval(floatval($inv->priceSale) *floatval($Objects[$x][1]));
                 $total_pay +=floatval($total);
-
                 sales::create([
                     'inventory_id' => $Objects[$x][0],
                     'customer_id' => $request->Id,

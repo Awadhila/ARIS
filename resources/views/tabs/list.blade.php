@@ -6,7 +6,6 @@
                     @if ($Objects['title'] == "Transaction")
                         @if (in_array($key, $Objects['form']))
                             @if ($key == "supplier_id")
-                                <p class="col-sm col-form-label">{{'Supplier'}}</p>
                             @elseif($key == "inventory_id") 
                                 <p class="col-sm col-form-label">{{"Item"}}</p>
                             @else
@@ -30,7 +29,6 @@
             @foreach ($items->toArray() as $key=>$value)
                 @if (in_array($key, $Objects['form']))
                     @if ($key == "supplier_id")
-                        <p class="col-sm col-form-label">{{strval($items["suppliers"]->name)}}</p>
                     @elseif($key == "inventory_id") 
                         <p class="col-sm col-form-label">{{strval($items["inventories"]->name)}}</p>
                     @else
