@@ -17,21 +17,11 @@ class SalesFactory extends Factory
     public function definition()
     {
 
-        $inv = DB::table('inventories')->get()->random();
-        $avalible = floatval($inv->stock) - floatval($inv->sold);
-        $quantity = rand(1, $avalible);
-        if(intval($inv->stock - $inv->sold) > 0  ){
-            $inv = Inventory::find($inv->id);
-            $inv->sold += floatval($quantity);
-            return [
-                'inventory_id' => $inv->id,
-                'payment_id'=> payment::where('Status',null)->first()->id,
-                'Quantity' => $quantity,
-                'Price' => floatval($inv->priceBuy*$quantity)
-            ];
-            $inv->save();
 
-        }
+            return [
+                'payment_id'=> payment::where('Status',null)->first()->id,
+            ];
+
 
     }
 }

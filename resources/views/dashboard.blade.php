@@ -43,14 +43,14 @@
         $( "#tab2 a" ).attr("aria-selected","false");
     }
     $("#tab1").click(function(){
-        if(type == "sales"){
+        if(type == "Sales View"){
             window.location = "/sales/view/debit"
         }else{
             window.location = "/delivery/view/debit"
         }
     });
     $("#tab2").click(function(){
-        if(type == "sales"){ 
+        if(type == "Sales View"){ 
             window.location = "/sales/view/credit"
         }else{
             window.location = "/delivery/view/credit"

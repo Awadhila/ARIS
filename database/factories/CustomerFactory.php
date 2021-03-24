@@ -14,7 +14,7 @@ class CustomerFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => DB::table('users')->where('name','Awadh Al-Rae')->first()->id,
+            'user_id' => DB::table('users')->where('name','Demo')->first()->id,
             'name' => $this->faker->name,
             'Contact' => $this->faker->phoneNumber,        
         ];

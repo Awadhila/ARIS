@@ -51,18 +51,54 @@ class TransactionSeeder extends Seeder
             }
         } 
         $cuss = customer::all();
+
         foreach ($cuss as $cus) {
+            Log::info(strval($cus->name));
+
+
             payment::factory()->count(1)->create([
                 'Type' => 'sales',
 
             ]);
-            sales::factory()->count(rand(1,10))->create([
-                'customer_id' => $cus->id,
 
-            ]); 
+            for ($x = 0; $x <= rand(1,10); $x++) {
+
+                $inv = DB::table('inventories')->where('sold', '<=', 90)->get()->random();
+
+                while(true){
+                    $added = DB::table('sales')->where('customer_id', $cus->id)->where('inventory_id',  $inv->id)->pluck('inventory_id');               
+                    if($added->count()){
+                        $inv = DB::table('inventories')->where('sold', '<=', 90)->get()->random();
+                    }else{
+                        break;
+                    }
+                } 
+                Log::info(strval('Added Item No | '.strval($x).' Item ID | '.$inv->id));
+                $avalible = floatval($inv->stock) - floatval($inv->sold);
+                $quantity = rand(1, 10);
+                if($avalible > 0){
+                    if ($quantity <= $avalible){
+                        $quantity == $avalible;
+                    }
+                    $inv = Inventory::find($inv->id);
+                    $inv->sold += floatval($quantity);
+                    $inv->save();
+                }
+                sales::factory()->count(1)->create([
+                    'customer_id' => $cus->id,
+                    'inventory_id' => $inv->id,
+                    'Quantity' => $quantity,
+                    'Price' => floatval($inv->priceBuy*$quantity)
+                ]);            
+            }
+            $added = DB::table('sales')->where('customer_id', $cus->id)->pluck('inventory_id');               
+
+            Log::info($added);
+
+ 
             $payment = payment::where('status',null)->first();
             $payment->status = rand(0,1);
-            $payment->Total =  delivery::where('supplier_id',$supp->id)->sum('Price');
+            $payment->Total =  sales::where('customer_id',$cus->id)->sum('Price');
             $payment->save();
         }
 

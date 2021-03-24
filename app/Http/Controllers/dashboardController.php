@@ -31,7 +31,7 @@ class dashboardController extends Controller
         if (sales::count() > 0){
             $Title = 'Transaction';
             $Type = 'Sales View';
-            $form = array("supplier_id","inventory_id", "quantity","price");
+            $form = array("supplier_id","inventory_id", "Quantity","price");
     
             $sales = array();
             if($tab == 'debit'){
