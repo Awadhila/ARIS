@@ -25,7 +25,6 @@ class PaymentFactory extends Factory
     public function definition()
     {
         return [
-            'Type' => $this->faker->randomElement(['sales','delivery']),
             'Total' => 0,
             'Status' => null,        ];
     }

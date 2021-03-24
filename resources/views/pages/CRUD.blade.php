@@ -6,7 +6,6 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __($Objects['title']) }}</div>
-
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -28,9 +27,22 @@
                                             @csrf
                                             @include('tabs.form',['Objects' => $Objects])
                                             <button style="display:none;" id="update" type="submit" class="btn btn-primary">Update Changes</button>
-
                                         </form>
-
+ 
+                                        @if ( $items['inventories'] != null && $Objects['title'] =="Supplier" )
+                                            @foreach ($items['inventories'] as $x=>$inv)
+                                            <div class="border-bottom form-group row ml-1">
+                                                <p class="col-sm-1 col-form-label">{{ ++$x }} )</p>
+                                                @foreach ($inv->toArray() as $key=>$value)
+                                                    @if($key == 'name' || $key == 'origin' || $key == 'catagory'|| $key == 'priceBuy')
+                                                        <p class="col-sm col-form-label">{{strval($value)}}</p>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                            @endforeach
+                                        @else
+                                           <p>There is no inventories<p> 
+                                        @endif                                      
                                     @endforeach
                                 @else
                                     @include('tabs.display.controls',['Objects' => $Objects])
@@ -43,7 +55,6 @@
                             @include('tabs.list',['Objects' => $Objects])
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

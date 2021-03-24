@@ -17,9 +17,9 @@ class supplier extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function inventory()
+    public function inventories()
     {
-        return $this->hasMany(Inventory::class);
+        return $this->hasMany(Inventory::class, 'supplier');
     }
     public function deliveries()
     {

@@ -43,10 +43,11 @@ class dashboardController extends Controller
                 ->where('status', '=', 0)
                 ->Paginate(1, ['*'], 'form_view');
             }
+
             foreach ($payments as $value) {
                 $items = sales::with(['customers','inventories'])
                 ->where('payment_id',  $value->id)
-                ->Paginate(5, ['*'], 'list_view');
+                ->Paginate(10, ['*'], 'list_view');
             }
             $Objects = array("form_view"=> $payments,
                              "list_view"=> $items,
@@ -58,7 +59,7 @@ class dashboardController extends Controller
             );
             return view('dashboard',[
                 'Objects' => $Objects,
-                ])->with(compact($Objects['form_view']));
+                ])->with(compact($Objects['form_view']),$Objects['list_view']);
         }else{
             return back();
         }
@@ -82,7 +83,7 @@ class dashboardController extends Controller
             foreach ($payments as $value) {
                 $items = delivery::with(['suppliers','inventories'])
                                  ->where('payment_id',  $value->id)
-                                 ->Paginate(5, ['*'], 'list_view');
+                                 ->Paginate(10, ['*'], 'list_view');
             }
             $Objects = array("form_view"=> $payments,
                              "list_view"=> $items,

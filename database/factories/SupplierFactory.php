@@ -27,11 +27,13 @@ class SupplierFactory extends Factory
         return [
             'user_id' => DB::table('users')->where('name','Awadh Al-Rae')->first()->id,
 
-            'name' => $this->faker->randomElement([
+            'name' => $this->faker->unique()->randomElement([
                 'Mwangaza',
                 'International Greengrocers',
                 'Gong',
-                'Deluxe Fruits Ltd'
+                'Deluxe Fruits Ltd',
+                'Upsowon Greengrocers',
+
             ]),
             'Contact' => $this->faker->unique()->randomElement([
                 'Airport N Rd, Nairobi','Old Malindi Rd, Mombasa',

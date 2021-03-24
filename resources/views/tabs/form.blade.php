@@ -27,16 +27,26 @@
                             <div class="form-group row">
                                 <label for="{{ucfirst($key)}}" class="col-sm-2 col-form-label">{{ucfirst($key)}}</label>
                                 <div class="col-sm">
-                                    <input type="text" readonly class="form-control-plaintext" name={{ucfirst($key)}} id={{ucfirst($key)}} value="Unpaid">
+                                    <input type="text" readonly class="form-control-plaintext" name={{ucfirst($key)}} id={{ucfirst($key)}} value="Paid">
                                 </div>
                             </div>
                             @endif
+                            @if ($Objects['Type'] == "Sales View")
+                            <div class="form-group row">
+                                <label for="supp" class="col-sm-2 col-form-label">Supplier</label>
+                                <div class="col-sm">
+                                    <input type="text" readonly class="form-control-plaintext" name="supp" id="supp" value="{{$Objects["list_view"][0]["customers"]->name}}">
+                                </div>
+                            </div> 
+                            @elseif ($Objects['Type'] == "Delivery View")
                             <div class="form-group row">
                                 <label for="supp" class="col-sm-2 col-form-label">Supplier</label>
                                 <div class="col-sm">
                                     <input type="text" readonly class="form-control-plaintext" name="supp" id="supp" value="{{$Objects["list_view"][0]["suppliers"]->name}}">
                                 </div>
                             </div> 
+                            @endif
+
                         @else 
                             <div class="form-group row">
                                 <label for="{{ucfirst($key)}}" class="col-sm-2 col-form-label">{{ucfirst($key)}}</label>

@@ -16,7 +16,7 @@ class clientsController extends Controller
         $title = "Supplier";
 
         $form = array("Name", "Contact");
-        $Objects = array("form_view"=> supplier::Paginate(1, ['*'], 'form_view'),
+        $Objects = array("form_view"=> supplier::with('inventories')->Paginate(1, ['*'], 'form_view'),
                          "list_view"=> supplier::Paginate(10, ['*'], 'list_view'),
                          "form" => $form,
                          "title" => $title,

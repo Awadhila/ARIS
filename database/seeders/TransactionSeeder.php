@@ -19,29 +19,55 @@ class TransactionSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
-        $supp = supplier::all()->random();
-        $inv = Inventory::inRandomOrder()->where('supplier',$supp->id)->first();
-        $quantity =rand(1,10);
+    public function run(){
 
-        $inv->stock += floatval($quantity);
-        $inv->save();
+        
         DB::table('payments')->delete();
         DB::table('deliveries')->delete();
-        payment::factory()->count(1)->create();
-        Log::alert($inv);
+        DB::table('sales')->delete();
+        $supps = supplier::all();
+        foreach ($supps as $supp) {
+            $invs = Inventory::where('supplier',$supp->id)->get();
+            if ( !empty($invs) ){
+                payment::factory()->count(1)->create([
+                    'Type' => 'delivery',
+                ]);
+                foreach ($invs as $inv) {
+                    $quantity = 100;
+    
+                    delivery::factory()->create([
+                        'supplier_id' => $supp->id,
+                        'inventory_id' => $inv->id,
+                        'Quantity' => 100,
+                        'Price' => floatval($inv->priceBuy*$quantity)
+                    ]);   
+                    $inv->stock += floatval($quantity);
+                    $inv->save();
+                } 
+                $payment = payment::where('status',null)->first();
+                $payment->status = rand(0,1);
+                $payment->Total =  delivery::where('supplier_id',$supp->id)->sum('Price');
+                $payment->save();
+            }
+        } 
+        $cuss = customer::all();
+        foreach ($cuss as $cus) {
+            payment::factory()->count(1)->create([
+                'Type' => 'sales',
 
-        delivery::factory()->create([
-            'supplier_id' => $supp->id,
-            'inventory_id' => $inv->id,
-            'Quantity' => $quantity,
-            'Price' => floatval($inv->priceBuy*$quantity)
-        ]);
-        $payment = payment::where('status',null)->first();
-        $payment->status = rand(0,1);
-        $payment->Total =  delivery::where('supplier_id',$supp->id)->sum('Price');
-        $payment->save();
+            ]);
+            sales::factory()->count(rand(1,10))->create([
+                'customer_id' => $cus->id,
+
+            ]); 
+            $payment = payment::where('status',null)->first();
+            $payment->status = rand(0,1);
+            $payment->Total =  delivery::where('supplier_id',$supp->id)->sum('Price');
+            $payment->save();
+        }
+
+
+
 
     }
 }
