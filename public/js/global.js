@@ -136,11 +136,11 @@ $(".atc").click(function(){
     }
 });
 $("#select").click(function(){
-    if ($("#type").val() == 'Sales'){
-        var id = prompt("Please enter Customer id", "15");
-        if (id == null || id == "") {
-        } else {
-            let x = 0
+    var id = prompt("Please enter Customer id", "15");
+    if (id == null || id == "") {
+    } else {
+        let x = 0
+        if ($("#type").val() == 'Sales'){
             customers.forEach(item => {
                 x++;
                 if ( item.id == id ) {
@@ -150,23 +150,16 @@ $("#select").click(function(){
                     $msg = "No customer with entered ID"
                     alert($msg);
                 }});
-
-        }
-    }else{
-        var id = prompt("Please enter Supplier id", "15");
-        if (id == null || id == "") {
-        } else {
-            let x = 0
+        }else{
             suppliers.forEach(item => {
-                x++;
-                if ( item.id == id ) {
-                    window.location = "/transactions/delivery/"+id
-                    x--;
-                }else if (suppliers.length == x ){
-                    $msg = "No supplier with entered ID"
-                    alert($msg);
-                }});
-
+            x++;
+            if ( item.id == id ) {
+                window.location = "/transactions/delivery/"+id
+                x--;
+            }else if (suppliers.length == x ){
+                $msg = "No supplier with entered ID"
+                alert($msg);
+            }});
         }
     }
 });
