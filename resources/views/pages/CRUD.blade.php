@@ -19,6 +19,14 @@
                                 @if ($Objects['form_view']->count())
                                     @foreach ($Objects['form_view'] as $items)
                                     @include('tabs.display.controls',['Objects' => $Objects])
+                                        @if(session()->has('message'))
+                                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                <strong>Sucsses</strong> {{session()->get('message')}}
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                        @endif
                                         @if ($Objects['title'] == "Customer")
                                             <form action={{ route('cus.update',$items->id) }} method="post" class="mb-4">
                                         @else
@@ -28,21 +36,31 @@
                                             @include('tabs.form',['Objects' => $Objects])
                                             <button style="display:none;" id="update" type="submit" class="btn btn-primary">Update Changes</button>
                                         </form>
- 
-                                        @if ( $items['inventories'] != null && $Objects['title'] =="Supplier" )
-                                            @foreach ($items['inventories'] as $x=>$inv)
-                                            <div class="border-bottom form-group row ml-1">
-                                                <p class="col-sm-1 col-form-label">{{ ++$x }} )</p>
-                                                @foreach ($inv->toArray() as $key=>$value)
-                                                    @if($key == 'name' || $key == 'origin' || $key == 'catagory'|| $key == 'priceBuy')
-                                                        <p class="col-sm col-form-label">{{strval($value)}}</p>
-                                                    @endif
+                                        @if ($Objects['title'] =="Supplier" )
+                                            @if ( $items['inventories']->count())
+                                                <div class="border-bottom form-group row ml-1">
+                                                    <p class="col-sm-1 col-form-label">{{ '##' }}</p>
+                                                    @foreach ($items['inventories'][0]->toArray() as $key=>$value)
+                                                        @if($key == 'name' || $key == 'origin' || $key == 'catagory'|| $key == 'priceBuy')
+                                                            <p class="col-sm col-form-label">{{ucfirst($key)}}</p>
+                                                        @endif
+                                                    @endforeach
+                                                </div>
+                                                @foreach ($items['inventories'] as $x=>$inv)
+                                                <div class="border-bottom form-group row ml-1">
+                                                    <p class="col-sm-1 col-form-label">{{ ++$x }} )</p>
+                                                    @foreach ($inv->toArray() as $key=>$value)
+                                                        @if($key == 'name' || $key == 'origin' || $key == 'catagory'|| $key == 'priceBuy')
+                                                            <p class="col-sm col-form-label">{{ucfirst($value)}}</p>
+                                                        @endif
+                                                    @endforeach
+                                                </div>
                                                 @endforeach
-                                            </div>
-                                            @endforeach
-                                        @else
-                                           <p>There is no inventories<p> 
-                                        @endif                                      
+                                            @else
+                                                <p>Supplier has no registered inventories<p> 
+                                            @endif                                           
+                                        @endif
+                                     
                                     @endforeach
                                 @else
                                     @include('tabs.display.controls',['Objects' => $Objects])
@@ -73,34 +91,5 @@
         $("#update").hide();
     });
 
-    if (tab == "list") {
-        $( "#ex1-tabs-2" ).addClass("show active" );
-        $( "#tab2 a" ).addClass("active" );
-        $("#tab2 a").attr("aria-selected","true");
-        $( "#ex1-tabs-1" ).removeClass("show active" );
-        $( "#tab1 a" ).removeClass("active");
-        $("#tab1 a").attr("aria-selected","false");
-    } else {
-        $( "#ex1-tabs-1" ).addClass("show active" );
-        $( "#tab1 a" ).addClass("active" );
-        $( "#tab1 a" ).attr("aria-selected","true");
-        $( "#ex1-tabs-2" ).removeClass("show active" );
-        $( "#tab2 a" ).removeClass("active");
-        $( "#tab2 a" ).attr("aria-selected","false");
-    }
-    $("#tab1").click(function(){
-        if(type == "Customer"){
-            window.location = "/customers/form"
-        }else{
-            window.location = "/suppliers/form"
-        }
-    });
-    $("#tab2").click(function(){
-        if(type == "Customer"){ 
-            window.location = "/customers/list"
-        }else{
-            window.location = "/suppliers/list"
-        }
-    });
 </script>
 @endsection

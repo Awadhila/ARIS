@@ -259,3 +259,32 @@ $('.quantity-right-plus').click(function(e){
     $("#delivery_view").click(function(){
         window.location = "delivery/view/credit"
     });
+    if (tab == "list") {
+        $( "#ex1-tabs-2" ).addClass("show active" );
+        $( "#tab2 a" ).addClass("active" );
+        $("#tab2 a").attr("aria-selected","true");
+        $( "#ex1-tabs-1" ).removeClass("show active" );
+        $( "#tab1 a" ).removeClass("active");
+        $("#tab1 a").attr("aria-selected","false");
+    } else {
+        $( "#ex1-tabs-1" ).addClass("show active" );
+        $( "#tab1 a" ).addClass("active" );
+        $( "#tab1 a" ).attr("aria-selected","true");
+        $( "#ex1-tabs-2" ).removeClass("show active" );
+        $( "#tab2 a" ).removeClass("active");
+        $( "#tab2 a" ).attr("aria-selected","false");
+    }
+    $("#tab1").click(function(){
+        if(type == "Customer"){
+            window.location = "/customers/form"
+        }else{
+            window.location = "/suppliers/form"
+        }
+    });
+    $("#tab2").click(function(){
+        if(type == "Customer"){ 
+            window.location = "/customers/list"
+        }else{
+            window.location = "/suppliers/list"
+        }
+    });

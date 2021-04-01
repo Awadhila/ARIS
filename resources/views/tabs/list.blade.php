@@ -12,7 +12,6 @@
                                 <label class="col-sm col-form-label">{{ucfirst($key)}}</label>
                             @endif
                         @endif
-                        
                     @else
                         @if ($key != "image" && $key != "discription" && in_array($key, $Objects['form']))
                             <label class="col-sm col-form-label">{{ucfirst($key)}}</label>

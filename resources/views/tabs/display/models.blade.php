@@ -12,9 +12,9 @@
                 <form action="{{ route('inv')}}" method="post" class="mb-4">
             @else
                 @if ($Objects['title'] == "Customer")
-                    <form action="{{ route('cus',['form']) }}" method="post" class="mb-4">
+                    <form action="{{ route('cus',['form','msg']) }}" method="post" class="mb-4">
                 @else
-                    <form action="{{ route('supp',['form']) }}" method="post" class="mb-4">
+                    <form action="{{ route('supp',['form','msg']) }}" method="post" class="mb-4">
                 @endif
             @endif
             @csrf
@@ -25,7 +25,7 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 @if ($Objects['title'] == "Inventory")
                     @if ($Objects["Supp"]->count())
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-primary">Register</button>
                     @endif
                 @else
                     <button type="submit" class="btn btn-primary">Save changes</button>
